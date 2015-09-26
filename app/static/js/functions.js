@@ -40,14 +40,22 @@ function getCurrentVideo() {
 	$.ajax({
 			type: "GET",
 			url: getVideoURL,
-			success: updateYoutubeFrame
+			success: updateView
 	});
 }
 
-function updateYoutubeFrame(json_text) {
+function updateView(json_text) {
 
+	console.log(json_text);
 	var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
+	var viewer_count = videoState['users'];
+
+	updateYoutubeFrame(video_id);
+	updateViewersLabel(viewer_count);
+}
+
+function updateYoutubeFrame(video_id) {
 
 	console.log("updateYoutubeFrame to: " + video_id);
 
@@ -61,6 +69,11 @@ function updateYoutubeFrame(json_text) {
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
 	}
+}
+
+function updateViewersLabel(viewer_count) {
+	
+	$('#viewersCount').html(viewer_count);
 }
 
 // Used intially
