@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request
 
 tracker = VideoTracker.getObject()
+chat = Chat.getObject()
 
 
 @app.route('/')
@@ -23,3 +24,8 @@ def skip():
 def get():
     ip = request.remote_addr
     return tracker.get_video(ip)
+
+@app.route('/api/chat')
+def postMsg():
+    msg = request.header.get('msg')
+    chat.appendMsg(msg)
