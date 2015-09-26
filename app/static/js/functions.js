@@ -66,7 +66,7 @@ function updateYoutubeFrame(video_id, start_time) {
 	console.log("updateYoutubeFrame to: " + video_id);
 
 	// If youtubeFrameVideo is different than current video on Server
-	if (youtubeFrameVideoId != video_id || Math.abs(start_time - player.getCurrentTime()) > 2) {
+	if (youtubeFrameVideoId != video_id || (Math.abs(start_time - player.getCurrentTime()) > 2 && player.getPlayerState() != 2) ) {
 
 		console.log("Change Video to: " + video_id);
 
