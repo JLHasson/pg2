@@ -1,7 +1,10 @@
 from app import app
-from .api import video
-
+from .api.video import VideoTracker
 from flask import render_template
+
+tracker = VideoTracker.getObject()
+
+
 
 
 @app.route('/')
@@ -12,10 +15,10 @@ def index():
 
 @app.route('/api/skip')
 def skip():
-    video.skipVideo()
-    return "Recorded"
+    tracker.reg_skip()
+    return str(tracker.skips) + "\n" + str(tracker.queue)
 
 
 @app.route('/api/get')
 def get():
-    return video.getVideo()
+    return tracker.get_video()
