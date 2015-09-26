@@ -1,3 +1,5 @@
+import json
+
 class Chat:
 
     __object = None
@@ -14,8 +16,13 @@ class Chat:
         self.maxSize = 100
 
 
-    def appendMsg(msg):
+    def appendMsg(self, msg):
         self.msgArray.append(msg)
         if len(self.msgArray) > self.maxSize:
             self.msgArray.pop()
 
+    def getMsgFeed(self):
+        j = {
+            'MsgArray': self.msgArray
+        }
+        return json.dumps(j)

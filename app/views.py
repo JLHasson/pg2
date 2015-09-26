@@ -1,5 +1,6 @@
 from app import app
 from .api.video import VideoTracker
+from .api.chat import Chat
 from flask import render_template
 from flask import request
 
@@ -27,5 +28,6 @@ def get():
 
 @app.route('/api/chat')
 def postMsg():
-    msg = request.header.get('msg')
+    msg = request.headers.get('msg')
     chat.appendMsg(msg)
+    return chat.getMsgFeed()
