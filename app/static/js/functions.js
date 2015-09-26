@@ -29,12 +29,12 @@ $(document).ready(function() {
 	        $('#skip-button').toggleClass("btn-danger");
 	});
 
+    $('.chat-panel').height($('#player').height());
+
 	// Ask Web Server, Do I need to update? (every 500ms)
 	setInterval(getCurrentVideo, 500);
 });
 
-$('.chat-panel').height($('#player').height());
-=======
 function getCurrentVideo() {
 	var getVideoURL = '/api/get';
 	$.ajax({
