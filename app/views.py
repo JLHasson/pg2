@@ -3,6 +3,10 @@ from .api.video import VideoTracker
 from flask import render_template
 from flask import request
 
+import logging
+
+logging.basicConfig(filename="server.log", level=logging.DEBUG)
+
 tracker = VideoTracker.getObject()
 
 
@@ -23,3 +27,9 @@ def skip():
 def get():
     ip = request.remote_addr
     return tracker.get_video(ip)
+
+
+@app.route('/api/leave')
+def leave():
+    ip = request.remote_addr
+    return tracker.unregister(ip)

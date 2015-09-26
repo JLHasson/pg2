@@ -2,6 +2,8 @@
 
 from apiclient.discovery import build
 import isodate
+import logging
+logging.getLogger("googleapiclient.discovery").setLevel(logging.WARNING)
 
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
