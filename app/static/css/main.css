@@ -75,6 +75,7 @@ hr {
 
 .panel {
     border-radius: 0px !important;
+    display: block !important;
 }
 
 .chat-panel {

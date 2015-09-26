@@ -49,8 +49,8 @@ function updateView(videoState) {
 
     console.log(start_time);
 
-    checkSkipped(video_id, last_skipped);
-	updateYoutubeFrame(video_id, start_time);
+    checkSkipped(video_id, last_skipped, start_time);
+	// updateYoutubeFrame(video_id, start_time);
 	updateViewersLabel(viewer_count);
 }
 
@@ -70,13 +70,15 @@ function updateYoutubeFrame(video_id, start_time) {
 
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
+        animationInProgress = false;
         if ($('#skip-button').hasClass('btn-danger') == true)
             $('#skip-button').toggleClass('btn-danger');
 	}
 }
 
 function updateSkips(skips) {
-    updateProgress(skips);
+    if (!animationInProgress)
+        updateProgress(skips);
 }
 
 function updateViewersLabel(viewer_count) {
@@ -143,14 +145,22 @@ function updateProgress(newValue) {
     $('.custom-progress').css('width', newValue.toString() + '%');
 }
 
-function checkSkipped(video_id, last_skipped) {
+function checkSkipped(video_id, last_skipped, start_time) {
 
     if (youtubeFrameVideoId != video_id && last_skipped) {
-
+        animationInProgress = true;
         updateProgress(100);
+        $('#skip-button').fadeOut(500, function() {
+            $('#skipped').fadeIn(500, function() {
+                $('#skipped').fadeOut(500, function() {
+                    $('#skip-button').fadeIn(500);
+                });
+            });
+        });
 
-        
-
+        setTimeout(updateYoutubeFrame, 500, video_id, start_time);
+    } else {
+        updateYoutubeFrame(video_id, start_time);
     }
 
 }
