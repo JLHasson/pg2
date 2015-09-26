@@ -12,10 +12,4 @@ $('#skip-button').click(function() {
         $('#keep-button').toggleClass("btn-success")
 });
 
-// $(document).ready(function() {
-//     setTimeout({
-//
-//         $('#player').attr('src', 'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1');
-//
-//     }, 5000);
-// });
+$('.chat-panel').height($('#player').height());
