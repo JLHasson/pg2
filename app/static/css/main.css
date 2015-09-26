@@ -1,14 +1,25 @@
 body {
-    background-color: #cbcbcb !important;
+    background-color: #ececed !important;
+}
+
+.skip-section {
+    margin-bottom: 10px;
+}
+
+.video-section {
+    margin-bottom: 15px;
+    /*width: 70%;*/
+}
+
+.clicked-keep {
+    background-color: green;
+}
+
+.clicked-skip {
+    background-color: red;
 }
 
 /* EMBED */
-
-#player {
-    width: auto;
-    height: auto;
-}
-
 /* END EMBED */
 
 /* NAVBAR */
