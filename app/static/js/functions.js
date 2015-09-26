@@ -33,23 +33,19 @@ $(document).ready(function() {
 	});
 
 	$('#submitMsg').on("click", function() {
-		var postMsgURL = '/api/chat'
-		console.log("Submit Msg");
-		
-		var msgInput = $('#msgInput').val();
 
-		console.log(msgInput);
-		$.ajax({
-				type: "GET",
-				url: postMsgURL,
-				headers: {
-					'msg': msgInput
-				},
-				success: function(response) {
-					console.log(response);
-				}
-		});
+		console.log("Submit Msg");
+		sendMsg();
 	});
+
+	/* On Key Listener */
+
+	$('#msgInput').on("keyup", function(e) {
+		if(e.which == 13) {
+            console.log('enter');
+            sendMsg();
+        }
+	})
 
     $('.chat-panel').height($('#player').height());
 
@@ -86,6 +82,26 @@ function getMessageFeed() {
 
 				// Update Global Variable
 				msgCount = serverMsgCount;
+			}
+	});
+}
+
+function sendMsg() {
+	var postMsgURL = '/api/chat'
+	var msgInput = $('#msgInput').val();
+
+	// Clear input 
+	$('#msgInput').val('');
+	
+	console.log(msgInput);
+	$.ajax({
+			type: "GET",
+			url: postMsgURL,
+			headers: {
+				'msg': msgInput
+			},
+			success: function(response) {
+				console.log(response);
 			}
 	});
 }

@@ -22,6 +22,7 @@ class Chat:
         self.msgArray.append(msg)
         if len(self.msgArray) > self.maxSize:
             self.msgArray.pop()
+            self.msgCount = self.maxSize
 
     def getMsgFeed(self):
         j = {
