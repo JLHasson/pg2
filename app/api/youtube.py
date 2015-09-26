@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from apiclient.discovery import build
+import isodate
 
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
@@ -11,6 +12,7 @@ DEVELOPER_KEY = "AIzaSyBsn-BYrt_Rv41zb2AzRdwGjEOgpYUFs-E"
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
 
+
 def youtube_search(search_term, results):
     youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
                     developerKey=DEVELOPER_KEY)
@@ -19,7 +21,7 @@ def youtube_search(search_term, results):
     # query term.
     search_response = youtube.search().list(
         q=search_term,
-        part="id,snippet",
+        part="id",
         maxResults=results
     ).execute()
 
@@ -29,6 +31,22 @@ def youtube_search(search_term, results):
     # matching videos
     for search_result in search_response.get("items", []):
         if search_result["id"]["kind"] == "youtube#video":
-              videos.append(search_result["id"]["videoId"])
+              videos.append((search_result["id"]["videoId"], video_length(search_result["id"]["videoId"])))
 
     return videos
+
+
+def video_length(id):
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+                    developerKey=DEVELOPER_KEY)
+
+    resp = youtube.videos().list(
+        part="id,contentDetails",
+        id=id
+    ).execute()
+
+    return parse_time(resp.get("items", [])[0]["contentDetails"]["duration"])
+
+
+def parse_time(time):
+    return isodate.parse_duration(time).total_seconds()

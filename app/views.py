@@ -6,8 +6,6 @@ from flask import request
 tracker = VideoTracker.getObject()
 
 
-
-
 @app.route('/')
 @app.route('/index')
 def index():
