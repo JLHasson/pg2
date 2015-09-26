@@ -40,14 +40,18 @@ function getCurrentVideo() {
 	$.ajax({
 			type: "GET",
 			url: getVideoURL,
-			success: updateYoutubeFrame
+			success: parseResponse
 	});
 }
 
-function updateYoutubeFrame(json_text) {
-
-	var videoState = JSON.parse(json_text)
+function parseResponse(json_text) {
+    var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
+    updateYoutubeFrame(video_id);
+    updateSkips(videoState['skips']);
+}
+
+function updateYoutubeFrame(video_id) {
 
 	console.log("updateYoutubeFrame to: " + video_id);
 
@@ -61,6 +65,10 @@ function updateYoutubeFrame(json_text) {
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
 	}
+}
+
+function updateSkips(skips) {
+    updateProgress(skips);
 }
 
 // Used intially
@@ -114,4 +122,9 @@ function onPlayerStateChange(event) {
 
 function stopVideo() {
 	player.stopVideo();
+}
+
+function updateProgress(newValue) {
+    $('.custom-progress').attr('aria-valuenow', newValue);
+    $('.custom-progress').css('width', newValue.toString() + '%');
 }
