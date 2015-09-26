@@ -23,8 +23,8 @@ class VideoTracker:
         self.queue_batch = 20
 
         self.ip_list = set()
+        self.skip_list = set()
         self.skip_thresh = 0.5
-        self.skips = 0
         self.start_time = time.time()
 
         self.load_word_list()
@@ -54,25 +54,36 @@ class VideoTracker:
         return term.strip()
 
     def get_video(self, ip):
+        if self.running_time() >= self.queue[0][1]:
+            t = Thread(target=self.next_video)
+            t.setDaemon(True)
+            t.start()
+
         self.ip_list.add(ip)
         print(len(self.ip_list))
         j = {
             "id": self.queue[0][0],
-            "time": int(time.time() - self.start_time)
+            "time": self.running_time(),
+            "users": len(self.ip_list),
+            "skips": len(self.skip_list),
+            "threshold": int(self.skip_thresh * len(self.ip_list))
         }
         return json.dumps(j)
 
-    def reg_skip(self):
-        self.skips += 1
-        if self.skips >= self.skip_thresh * len(self.ip_list):
+    def reg_skip(self, id):
+        self.skip_list.add(id)
+        if len(self.skip_list) >= self.skip_thresh * len(self.ip_list):
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
 
     def next_video(self):
-        self.skips = 0
+        self.skip_list = set()
         self.queue.pop(0)
         self.ip_list = set()
         self.start_time = time.time()
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()
+
+    def running_time(self):
+        return int(time.time() - self.start_time)
