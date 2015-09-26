@@ -45,9 +45,11 @@ function updateView(videoState) {
 	var video_id = videoState['id'];
     var start_time = videoState['time'];
 	var viewer_count = videoState['users'];
+    var last_skipped = videoState['last_skipped'];
 
     console.log(start_time);
 
+    checkSkipped(video_id, last_skipped);
 	updateYoutubeFrame(video_id, start_time);
 	updateViewersLabel(viewer_count);
 }
@@ -139,4 +141,16 @@ function stopVideo() {
 function updateProgress(newValue) {
     $('.custom-progress').attr('aria-valuenow', newValue);
     $('.custom-progress').css('width', newValue.toString() + '%');
+}
+
+function checkSkipped(video_id, last_skipped) {
+
+    if (youtubeFrameVideoId != video_id && last_skipped) {
+
+        updateProgress(100);
+
+        
+
+    }
+
 }
