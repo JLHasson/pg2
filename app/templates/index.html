@@ -57,7 +57,23 @@
                     <div class="col-md-3 chat-section">
                         <div class="panel chat-panel">
                             <h2 class="text-center chat-title"><small>Chat</small></h2><hr>
+                            <div id="conversation-container">
+                                <div id="chat" class="panel-collapse collapse in">
+                                    <div>
+                                    <div id="chat-feed" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
 
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="input-container">
+                                <div class="input-group">
+                                   <input type="text" class="form-control" id="msgInput">
+                                   <span class="input-group-btn">
+                                        <button class="btn btn-default submit-btn" id="submitMsg" type="button">Go!</button>
+                                   </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
