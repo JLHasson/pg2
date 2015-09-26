@@ -59,21 +59,56 @@
                     <div class="col-md-3 chat-section">
                         <div class="panel chat-panel">
                             <h2 class="text-center chat-title"><small>Chat</small></h2><hr>
-                            <div id="conversation-container"></div><hr>
-                            <div id="input-container">
-                                <input type="text" id="msgInput">
-                                <button id="submitMsg">Submit</button>
+                            <div id="conversation-container">
+                                <div id="chat" class="panel-collapse collapse in">
+                                    <div>
+                                    <div class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 300px;">
+                                        <div class="row">
+                                            <!-- FILL THIS WITH THE CLIENT'S CURRENT TIME -->
+                                            <div class="col-lg-12">
+                                                <p class="text-center text-muted small">January 1, 2014 at 12:23 PM</p>
+                                            </div>
+                                            <!-- END CURRENT TIME FILL -->
+                                        </div>
+                                        <!-- INSERT THIS ENTIRE BLOCK PER MESSAGE -->
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="media" style="margin-top: 5px;">
+                                                    <div class="media-body" style="padding-left: 3px; padding-right: 3px;">
+                                                        <!-- USERNAME HERE -->
+                                                        <h4 class="media-heading">Jane Smith
+                                                            <!-- CURRENT TIMESTAMP, THIS CAN BE DONE CLIENT SIDE -->
+                                                            <span class="small pull-right">12:23 PM</span>
+                                                        </h4>
+                                                        <!-- PUT THE MESSAGE HERE -->
+                                                        <p>Hi, I wanted to make sure you got the latest product report. Did Roddy get it to you?</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END BLOCK TO BE INSERTED -->
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="input-container" class="pull-down">
+                                <div class="input-group">
+                                   <input type="text" class="form-control" id="msgInput">
+                                   <span class="input-group-btn">
+                                        <button class="btn btn-default" id="submitMsg" type="button">Go!</button>
+                                   </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer">
+            <!-- <footer class="footer">
                 <div class="container">
                     <ul class="nav navbar-nav">
                         <li><p class="text-muted"><a href="https://github.com/JLHasson/YouVote">Made with <i class="fa fa-heart"></i> for HackGT 2015.</a></p><li>
                     </ul>
                 </div>
-            </footer>
+            </footer> -->
     </body>
 </html>

@@ -32,7 +32,7 @@ $(document).ready(function() {
 	$('#submitMsg').on("click", function() {
 		var postMsgURL = '/api/chat'
 		console.log("Submit Msg");
-		
+
 		var msgInput = $('#msgInput').val();
 
 		console.log(msgInput);
@@ -48,13 +48,18 @@ $(document).ready(function() {
 		});
 	});
 
-    $('.chat-panel').height($('#player').height());
+    $('.portlet-body').height($('#player').height() - $('.chat-title').height() - $('#input-container').height() - $('hr').height());
+
+    //for each element that is classed as 'pull-down', set its margin-top to the difference between its own height and the height of its parent
+    // $('.pull-down').each(function() {
+    //     $(this).css('margin-top', $(this).parent().height()-$(this).height())
+    // });
 
 	// Ask Web Server, Do I need to update? (every 500ms)
 	setInterval(getCurrentVideo, 500);
 
 	// Update Chat Box
-	setInterval(getMessageFeed, 500);
+	//setInterval(getMessageFeed, 500);
 });
 
 function getCurrentVideo() {
@@ -106,7 +111,7 @@ function updateYoutubeFrame(video_id) {
 }
 
 function updateViewersLabel(viewer_count) {
-	
+
 	$('#viewersCount').html(viewer_count);
 }
 
