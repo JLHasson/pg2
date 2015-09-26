@@ -52,22 +52,28 @@ function parseResponse(json_text) {
 
 function updateView(videoState) {
 	var video_id = videoState['id'];
+    var start_time = videoState['time'];
 	var viewer_count = videoState['users'];
 
-	updateYoutubeFrame(video_id);
+    console.log(start_time);
+
+	updateYoutubeFrame(video_id, start_time);
 	updateViewersLabel(viewer_count);
 }
 
-function updateYoutubeFrame(video_id) {
+function updateYoutubeFrame(video_id, start_time) {
 
 	console.log("updateYoutubeFrame to: " + video_id);
 
 	// If youtubeFrameVideo is different than current video on Server
-	if (youtubeFrameVideoId != video_id) {
+	if (youtubeFrameVideoId != video_id || Math.abs(start_time - player.getCurrentTime()) > 2) {
 
 		console.log("Change Video to: " + video_id);
 
-		player.loadVideoById({'videoId': video_id});
+		player.loadVideoById({
+            'videoId': video_id,
+            'startSeconds': start_time
+        });
 
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
@@ -88,6 +94,7 @@ function createYoutubeFrame(json_text) {
 
 	var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
+    var time = videoState['time'];
 
 	// Store in Global Variable
 	youtubeFrameVideoId = video_id;
