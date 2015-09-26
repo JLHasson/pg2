@@ -26,18 +26,9 @@ $(document).ready(function() {
 		var skipURL = '/api/skip';
 		console.log("skip");
 		$(this).toggleClass("btn-danger");
-	    if ($('#keep-button').hasClass('btn-success'))
-	        $('#keep-button').toggleClass("btn-success");
 
 	    // Get Request to increment skip count
 	    $.ajax({url: skipURL});
-	});
-
-	$('#keep-button').on("click", function() {
-		console.log("keep");
-	    $(this).toggleClass("btn-success");
-	    if ($('#skip-button').hasClass('btn-danger'))
-	        $('#skip-button').toggleClass("btn-danger");
 	});
 
 	$('#submitMsg').on("click", function() {
@@ -79,7 +70,7 @@ function getCurrentVideo() {
 	$.ajax({
 			type: "GET",
 			url: getVideoURL,
-			success: updateView
+			success: parseResponse
 	});
 }
 
@@ -157,31 +148,47 @@ function sendMsg() {
 	});
 }
 
-function updateView(json_text) {
+function parseResponse(json_text) {
+    var videoState = JSON.parse(json_text)
+    updateView(videoState);
+    updateSkips(videoState['skips']);
+}
 
-	// console.log(json_text);
-	var videoState = JSON.parse(json_text)
+function updateView(videoState) {
+
 	var video_id = videoState['id'];
+    var start_time = videoState['time'];
 	var viewer_count = videoState['users'];
 
-	updateYoutubeFrame(video_id);
+    console.log(start_time);
+
+	updateYoutubeFrame(video_id, start_time);
 	updateViewersLabel(viewer_count);
 }
 
-function updateYoutubeFrame(video_id) {
+function updateYoutubeFrame(video_id, start_time) {
 
 	// console.log("updateYoutubeFrame to: " + video_id);
 
 	// If youtubeFrameVideo is different than current video on Server
-	if (youtubeFrameVideoId != video_id) {
+	if (youtubeFrameVideoId != video_id || (Math.abs(start_time - player.getCurrentTime()) > 2 && player.getPlayerState() != 2) ) {
 
 		console.log("Change Video to: " + video_id);
 
-		player.loadVideoById({'videoId': video_id});
+		player.loadVideoById({
+            'videoId': video_id,
+            'startSeconds': start_time
+        });
 
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
+        if ($('#skip-button').hasClass('btn-danger') == true)
+            $('#skip-button').toggleClass('btn-danger');
 	}
+}
+
+function updateSkips(skips) {
+    updateProgress(skips);
 }
 
 function updateViewersLabel(viewer_count) {
@@ -194,6 +201,7 @@ function createYoutubeFrame(json_text) {
 
 	var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
+    var time = videoState['time'];
 
 	// Store in Global Variable
 	youtubeFrameVideoId = video_id;
@@ -240,4 +248,9 @@ function onPlayerStateChange(event) {
 
 function stopVideo() {
 	player.stopVideo();
+}
+
+function updateProgress(newValue) {
+    $('.custom-progress').attr('aria-valuenow', newValue);
+    $('.custom-progress').css('width', newValue.toString() + '%');
 }
