@@ -71,9 +71,13 @@ function getMessageFeed() {
 	$.ajax({
 			type: "GET",
 			url: apiChat,
-			success: function(response) {
-				console.log(response);
-				$("#conversation-container").html(response)
+			success: function(json_text) {
+				console.log(json_text);
+				var msgFeed = JSON.parse(json_text)['MsgArray'];
+
+				for (var i = 0; i < msgFeed.length; i++) {
+					// $("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
+				}
 			}
 	});
 }
