@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	// Initalize msgCount, the amount of chat messages received, to 0. (Global Variable)
+	msgCount = 0;
+
 	/* Set Up Youtube IFrame Player */
 
 	// 2. This code loads the IFrame Player API code asynchronously.
@@ -73,11 +76,16 @@ function getMessageFeed() {
 			url: apiChat,
 			success: function(json_text) {
 				console.log(json_text);
-				var msgFeed = JSON.parse(json_text)['MsgArray'];
+				var msgFeedObject = JSON.parse(json_text);
+				var msgFeed = msgFeedObject['MsgArray'];
+				var serverMsgCount = msgFeedObject['MsgCount'];
 
-				for (var i = 0; i < msgFeed.length; i++) {
-					// $("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
+				for (var i = msgCount; i < serverMsgCount; i++) {
+					$("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
 				}
+
+				// Update Global Variable
+				msgCount = serverMsgCount;
 			}
 	});
 }
