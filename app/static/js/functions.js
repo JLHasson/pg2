@@ -46,9 +46,16 @@ function getCurrentVideo() {
 
 function parseResponse(json_text) {
     var videoState = JSON.parse(json_text)
-	var video_id = videoState['id'];
-    updateYoutubeFrame(video_id);
+    updateView(videoState);
     updateSkips(videoState['skips']);
+}
+
+function updateView(videoState) {
+	var video_id = videoState['id'];
+	var viewer_count = videoState['users'];
+
+	updateYoutubeFrame(video_id);
+	updateViewersLabel(viewer_count);
 }
 
 function updateYoutubeFrame(video_id) {
@@ -69,6 +76,11 @@ function updateYoutubeFrame(video_id) {
 
 function updateSkips(skips) {
     updateProgress(skips);
+}
+
+function updateViewersLabel(viewer_count) {
+
+	$('#viewersCount').html(viewer_count);
 }
 
 // Used intially

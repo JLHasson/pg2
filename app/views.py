@@ -14,8 +14,9 @@ def index():
 
 @app.route('/api/skip')
 def skip():
-    tracker.reg_skip()
-    return str(tracker.skips) + "\n" + str(tracker.queue)
+    ip = request.remote_addr
+    tracker.reg_skip(ip)
+    return str(len(tracker.skip_list)) + "\n" + str(tracker.queue)
 
 
 @app.route('/api/get')

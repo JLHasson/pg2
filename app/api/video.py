@@ -20,11 +20,11 @@ class VideoTracker:
         self.word_list = []
         self.queue = []
         self.queue_thresh = 10
-        self.queue_batch = 20
+        self.queue_batch = 3
 
         self.ip_list = set()
+        self.skip_list = set()
         self.skip_thresh = 0.5
-        self.skips = 0
         self.start_time = time.time()
 
         self.load_word_list()
@@ -43,8 +43,9 @@ class VideoTracker:
         for r in results:
             self.queue.append(r)
 
-        print("Ready:")
         print(str(self.queue))
+        if len(self.queue) < self.queue_thresh:
+            self.populate_queue()
 
     def get_search_term(self):
         term = ""
@@ -54,25 +55,40 @@ class VideoTracker:
         return term.strip()
 
     def get_video(self, ip):
-        self.ip_list.add(ip)
-        print(len(self.ip_list))
-        j = {
-            "id": self.queue[0][0],
-            "time": int(time.time() - self.start_time)
-        }
-        return json.dumps(j)
-
-    def reg_skip(self):
-        self.skips += 1
-        if self.skips >= self.skip_thresh * len(self.ip_list):
+        if self.running_time() >= self.queue[0][1]:
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
 
+        self.ip_list.add(ip)
+        print(len(self.ip_list))
+        j = {
+            "id": self.queue[0][0],
+            "time": self.running_time(),
+            "users": len(self.ip_list),
+            "skips": self.skip_progress()
+        }
+        return json.dumps(j)
+
+    def reg_skip(self, id):
+        self.skip_list.add(id)
+        if len(self.skip_list) >= self.skip_thresh * len(self.ip_list):
+            t = Thread(target=self.next_video)
+            t.setDaemon(True)
+            t.start()
+
+    def skip_progress(self):
+        skips = len(self.skip_list)
+        needed = self.skip_thresh * len(self.ip_list)
+        return int(100 * skips/needed)
+
     def next_video(self):
-        self.skips = 0
+        self.skip_list = set()
         self.queue.pop(0)
         self.ip_list = set()
         self.start_time = time.time()
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()
+
+    def running_time(self):
+        return int(time.time() - self.start_time)
