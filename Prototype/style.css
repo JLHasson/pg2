@@ -1,0 +1,15 @@
+h1 {
+	display: inline;
+}
+
+#videoFrame {
+	position: absolute;
+	margin-top: 30px;
+	border: 1px solid grey;
+	height: 400px;
+	width: 400px;
+}
+
+#skip {
+	width: 150px;
+}
