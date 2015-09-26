@@ -15,18 +15,9 @@ $(document).ready(function() {
 		var skipURL = '/api/skip';
 		console.log("skip");
 		$(this).toggleClass("btn-danger");
-	    if ($('#keep-button').hasClass('btn-success'))
-	        $('#keep-button').toggleClass("btn-success");
 
 	    // Get Request to increment skip count
 	    $.ajax({url: skipURL});
-	});
-
-	$('#keep-button').on("click", function() {
-		console.log("keep");
-	    $(this).toggleClass("btn-success");
-	    if ($('#skip-button').hasClass('btn-danger'))
-	        $('#skip-button').toggleClass("btn-danger");
 	});
 
     $('.chat-panel').height($('#player').height());
@@ -77,6 +68,8 @@ function updateYoutubeFrame(video_id, start_time) {
 
 		// Update Global Variable
 		youtubeFrameVideoId = video_id;
+        if ($('#skip-button').hasClass('btn-danger') == true)
+            $('#skip-button').toggleClass('btn-danger');
 	}
 }
 
