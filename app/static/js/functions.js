@@ -53,7 +53,7 @@ $(document).ready(function() {
 	setInterval(getCurrentVideo, 500);
 
 	// Update Chat Box
-	//setInterval(getMessageFeed, 500);
+	setInterval(getMessageFeed, 500);
 });
 
 function getCurrentVideo() {
@@ -71,19 +71,45 @@ function getMessageFeed() {
 			type: "GET",
 			url: apiChat,
 			success: function(json_text) {
-				console.log(json_text);
+				console.log("getMessageFeed json " + json_text);
 				var msgFeedObject = JSON.parse(json_text);
 				var msgFeed = msgFeedObject['MsgArray'];
 				var serverMsgCount = msgFeedObject['MsgCount'];
 
 				for (var i = msgCount; i < serverMsgCount; i++) {
-					$("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
+					// $("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
+					console.log("msg: " + msgFeed[i]);
+					$('#chat-feed').append(getMsgHTML(msgFeed[i]));
 				}
 
 				// Update Global Variable
 				msgCount = serverMsgCount;
+
+				// Scroll Msg Feed to latest message
+				$('#chat-feed').animate({
+					scrollTop: $('#chat-feed').get(0).scrollHeight
+				}, 500);
 			}
 	});
+}
+
+function getMsgHTML(msg) {
+	
+	var ret = 
+    '<div class="row">' +
+    '<div class="col-lg-12">' +
+        '<div class="media" style="margin-top: 5px;">' +
+            '<div class="media-body" style="padding-left: 3px; padding-right: 3px;">' +
+                // <!-- USERNAME HERE -->
+                '<h4 class="media-heading">Jane Smith' +
+                    // <!-- CURRENT TIMESTAMP, THIS CAN BE DONE CLIENT SIDE -->
+                    '<span class="small pull-right">12:23 PM</span>' +
+                '</h4>' +
+                // <!-- PUT THE MESSAGE HERE -->
+                '<p>' + msg + '</p>' +
+            '</div>' +
+    '</div></div></div>';
+	return ret;
 }
 
 function sendMsg() {
@@ -93,7 +119,6 @@ function sendMsg() {
 	// Clear input 
 	$('#msgInput').val('');
 	
-	console.log(msgInput);
 	$.ajax({
 			type: "GET",
 			url: postMsgURL,
@@ -108,7 +133,7 @@ function sendMsg() {
 
 function updateView(json_text) {
 
-	console.log(json_text);
+	// console.log(json_text);
 	var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
 	var viewer_count = videoState['users'];
@@ -119,7 +144,7 @@ function updateView(json_text) {
 
 function updateYoutubeFrame(video_id) {
 
-	console.log("updateYoutubeFrame to: " + video_id);
+	// console.log("updateYoutubeFrame to: " + video_id);
 
 	// If youtubeFrameVideo is different than current video on Server
 	if (youtubeFrameVideoId != video_id) {
