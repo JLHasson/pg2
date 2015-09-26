@@ -56,7 +56,7 @@ $(document).ready(function() {
 });
 
 function getInitialChatBoxMessage() {
-	var ret = 
+	var ret =
 	'<div class="row">' +
 	// <!-- FILL THIS WITH THE CLIENT'S CURRENT TIME -->
 	'<div class="col-lg-12">' +
@@ -88,7 +88,7 @@ function getMessageFeed() {
 				var msgList = []
 
 				for (var i = serverMsgCount - msgCount - 1; i >= 0; i--) {
-					
+
 					var today = new Date()
 					var fakeDate = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear() + " " + msgFeed[i]['time']
 					if (startSeconds < (new Date(fakeDate)).getTime()) { // If the message time is after the start time display it
@@ -111,8 +111,8 @@ function getMessageFeed() {
 }
 
 function getMsgHTML(msg) {
-	
-	var ret = 
+
+	var ret =
     '<div class="row">' +
     '<div class="col-lg-12">' +
         '<div class="media" style="margin-top: 5px;">' +
@@ -133,9 +133,9 @@ function sendMsg() {
 	var postMsgURL = '/api/chat'
 	var msgInput = $('#msgInput').val();
 
-	// Clear input 
+	// Clear input
 	$('#msgInput').val('');
-	
+
 	$.ajax({
 			type: "GET",
 			url: postMsgURL,
