@@ -28,6 +28,7 @@ class VideoTracker:
         self.skip_list = set()
         self.skip_thresh = 0.5
         self.start_time = time.time()
+        self.last_was_skipped = False
 
         self.load_word_list()
         self.populate_queue()
@@ -62,13 +63,15 @@ class VideoTracker:
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
+            self.last_was_skipped = True
 
         self.ip_list.add(ip)
         j = {
             "id": self.queue[0][0],
             "time": self.running_time(),
             "users": len(self.ip_list),
-            "skips": self.skip_progress()
+            "skips": self.skip_progress(),
+            "last_skipped": self.last_was_skipped
         }
         return json.dumps(j)
 
@@ -78,6 +81,7 @@ class VideoTracker:
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
+            self.last_was_skipped = True
 
     def skip_progress(self):
         skips = len(self.skip_list)
