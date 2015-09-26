@@ -19,6 +19,8 @@ class VideoTracker:
         self.queue = []
         self.queue_thresh = 10
         self.queue_batch = 20
+
+        self.ip_list = set()
         self.skip_thresh = 3
         self.skips = 0
 
@@ -48,9 +50,9 @@ class VideoTracker:
             term += self.word_list[random.randint(0, len(self.word_list)-1)] + " "
         return term.strip()
 
-
-
-    def get_video(self):
+    def get_video(self, ip):
+        self.ip_list.add(ip)
+        print(len(self.ip_list))
         return self.queue[0]
 
     def reg_skip(self):
@@ -63,5 +65,6 @@ class VideoTracker:
     def next_video(self):
         self.skips = 0
         self.queue.pop(0)
+        self.ip_list = set()
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()

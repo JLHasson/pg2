@@ -1,6 +1,7 @@
 from app import app
 from .api.video import VideoTracker
 from flask import render_template
+from flask import request
 
 tracker = VideoTracker.getObject()
 
@@ -21,4 +22,5 @@ def skip():
 
 @app.route('/api/get')
 def get():
-    return tracker.get_video()
+    ip = request.remote_addr
+    return tracker.get_video(ip)
