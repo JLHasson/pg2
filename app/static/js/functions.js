@@ -44,7 +44,11 @@ function getCurrentVideo() {
 	});
 }
 
-function updateYoutubeFrame(video_id) {
+function updateYoutubeFrame(json_text) {
+	
+	var videoState = JSON.parse(json_text)
+	var video_id = videoState['id'];
+
 	console.log("updateYoutubeFrame to: " + video_id);
 
 	// If youtubeFrameVideo is different than current video on Server
@@ -60,7 +64,10 @@ function updateYoutubeFrame(video_id) {
 }
 
 // Used intially
-function createYoutubeFrame(video_id) {
+function createYoutubeFrame(json_text) {
+
+	var videoState = JSON.parse(json_text)
+	var video_id = videoState['id'];
 
 	// Store in Global Variable
 	youtubeFrameVideoId = video_id;
