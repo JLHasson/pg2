@@ -21,7 +21,7 @@ class VideoTracker:
         self.queue_batch = 20
 
         self.ip_list = set()
-        self.skip_thresh = 3
+        self.skip_thresh = 0.5
         self.skips = 0
 
         self.load_word_list()
@@ -57,7 +57,7 @@ class VideoTracker:
 
     def reg_skip(self):
         self.skips += 1
-        if self.skips == self.skip_thresh:
+        if self.skips == self.skip_thresh * len(self.ip_list):
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
