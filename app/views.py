@@ -11,7 +11,7 @@ tracker = VideoTracker.getObject()
 
 def get_ip():
     ip = request.remote_addr
-    if len(ip) == 0:
+    if len(ip) == 0 or ip == "b''":
         ip = request.headers["X-Real-IP"]
     return ip
 
