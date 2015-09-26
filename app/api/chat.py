@@ -1,3 +1,4 @@
+from time import gmtime, strftime
 import json
 
 class Chat:
@@ -19,10 +20,9 @@ class Chat:
 
     def appendMsg(self, msg):
         self.msgCount += 1
-        self.msgArray.append(msg)
+        self.msgArray.insert(0, {'msg': msg, 'time': strftime(("%I:%M %p"), gmtime())})
         if len(self.msgArray) > self.maxSize:
             self.msgArray.pop()
-            self.msgCount = self.maxSize
 
     def getMsgFeed(self):
         j = {

@@ -3,6 +3,14 @@ $(document).ready(function() {
 	// Initalize msgCount, the amount of chat messages received, to 0. (Global Variable)
 	msgCount = 0;
 
+	// Initialize current DateTime (Global Variable)
+	startDate = new Date();
+	startSeconds = startDate.getTime();
+
+	/* Load Current Day and Time in Chat Box */
+
+	$('#chat-feed').append(getInitialChatBoxMessage())
+
 	/* Set Up Youtube IFrame Player */
 
 	// 2. This code loads the IFrame Player API code asynchronously.
@@ -56,6 +64,16 @@ $(document).ready(function() {
 	setInterval(getMessageFeed, 500);
 });
 
+function getInitialChatBoxMessage() {
+	var ret = 
+	'<div class="row">' +
+	// <!-- FILL THIS WITH THE CLIENT'S CURRENT TIME -->
+	'<div class="col-lg-12">' +
+	'<p class="text-center text-muted small">' + startDate.toLocaleTimeString("en-us", {weekday: "long", year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"}) + '</p>' +
+	'</div></div>';
+	return ret;
+}
+
 function getCurrentVideo() {
 	var getVideoURL = '/api/get';
 	$.ajax({
@@ -76,10 +94,18 @@ function getMessageFeed() {
 				var msgFeed = msgFeedObject['MsgArray'];
 				var serverMsgCount = msgFeedObject['MsgCount'];
 
-				for (var i = msgCount; i < serverMsgCount; i++) {
-					// $("#chat-feed").append('<li>' + msgFeed[i] + '</li>');
-					console.log("msg: " + msgFeed[i]);
-					$('#chat-feed').append(getMsgHTML(msgFeed[i]));
+				var msgList = []
+
+				for (var i = serverMsgCount - msgCount - 1; i >= 0; i--) {
+					
+					var today = new Date()
+					var fakeDate = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear() + " " + msgFeed[i]['time']
+					if (startSeconds < (new Date(fakeDate)).getTime()) { // If the message time is after the start time display it
+						$('#chat-feed').append(getMsgHTML(msgFeed[i]));
+					} else {
+						// Print anyways until server time is fixed
+						$('#chat-feed').append(getMsgHTML(msgFeed[i]));
+					}
 				}
 
 				// Update Global Variable
@@ -101,12 +127,12 @@ function getMsgHTML(msg) {
         '<div class="media" style="margin-top: 5px;">' +
             '<div class="media-body" style="padding-left: 3px; padding-right: 3px;">' +
                 // <!-- USERNAME HERE -->
-                '<h4 class="media-heading">Jane Smith' +
+                '<h4 class="media-heading">' + // Username' +
                     // <!-- CURRENT TIMESTAMP, THIS CAN BE DONE CLIENT SIDE -->
-                    '<span class="small pull-right">12:23 PM</span>' +
+                    '<span class="small pull-right">' + msg['time'] + '</span>' +
                 '</h4>' +
                 // <!-- PUT THE MESSAGE HERE -->
-                '<p>' + msg + '</p>' +
+                '<p>' + msg['msg'] + '</p>' +
             '</div>' +
     '</div></div></div>';
 	return ret;
