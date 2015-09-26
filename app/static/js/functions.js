@@ -29,10 +29,32 @@ $(document).ready(function() {
 	        $('#skip-button').toggleClass("btn-danger");
 	});
 
+	$('#submitMsg').on("click", function() {
+		var postMsgURL = '/api/chat'
+		console.log("Submit Msg");
+		
+		var msgInput = $('#msgInput').val();
+
+		console.log(msgInput);
+		$.ajax({
+				type: "GET",
+				url: postMsgURL,
+				headers: {
+					'msg': msgInput
+				},
+				success: function(response) {
+					console.log(response);
+				}
+		});
+	});
+
     $('.chat-panel').height($('#player').height());
 
 	// Ask Web Server, Do I need to update? (every 500ms)
 	setInterval(getCurrentVideo, 500);
+
+	// Update Chat Box
+	setInterval(getMessageFeed, 500);
 });
 
 function getCurrentVideo() {
@@ -41,6 +63,18 @@ function getCurrentVideo() {
 			type: "GET",
 			url: getVideoURL,
 			success: updateView
+	});
+}
+
+function getMessageFeed() {
+	var apiChat = '/api/chat'
+	$.ajax({
+			type: "GET",
+			url: apiChat,
+			success: function(response) {
+				console.log(response);
+				$("#conversation-container").html(response)
+			}
 	});
 }
 

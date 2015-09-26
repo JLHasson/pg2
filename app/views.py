@@ -20,14 +20,15 @@ def skip():
     tracker.reg_skip(ip)
     return str(len(tracker.skip_list)) + "\n" + str(tracker.queue)
 
-
 @app.route('/api/get')
 def get():
     ip = request.remote_addr
     return tracker.get_video(ip)
 
-@app.route('/api/chat')
+@app.route('/api/chat', methods=["GET", "POST"])
 def postMsg():
+    print (request.headers)
     msg = request.headers.get('msg')
-    chat.appendMsg(msg)
+    if (msg != None):
+        chat.appendMsg(msg)
     return chat.getMsgFeed()
