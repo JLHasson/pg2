@@ -49,6 +49,10 @@ hr {
     margin-left: 5px;
 }
 
+.progress {
+    background: #449d44
+}
+
 .progress-bar {
     background: #d9534f;
 }

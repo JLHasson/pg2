@@ -45,7 +45,7 @@ function getCurrentVideo() {
 }
 
 function updateYoutubeFrame(json_text) {
-	
+
 	var videoState = JSON.parse(json_text)
 	var video_id = videoState['id'];
 
