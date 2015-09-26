@@ -9,6 +9,12 @@ logging.basicConfig(filename="server.log", level=logging.DEBUG)
 
 tracker = VideoTracker.getObject()
 
+def get_ip():
+    ip = request.remote_addr
+    if len(ip) == 0:
+        ip = request.headers["X-Real-IP"]
+    return ip
+
 
 @app.route('/')
 @app.route('/index')
@@ -18,14 +24,14 @@ def index():
 
 @app.route('/api/skip')
 def skip():
-    ip = request.remote_addr
+    ip = get_ip()
     tracker.reg_skip(ip)
     return str(len(tracker.skip_list)) + "\n" + str(tracker.queue)
 
 
 @app.route('/api/get')
 def get():
-    ip = request.remote_addr
+    ip = get_ip()
     return tracker.get_video(ip)
 
 
