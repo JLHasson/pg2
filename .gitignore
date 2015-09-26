@@ -1,2 +1,4 @@
 .idea/
 virtenv/
+*.pyc
+*__pycache__/
