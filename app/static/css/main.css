@@ -8,8 +8,8 @@ h2 {
 }
 
 hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .footer {
@@ -83,6 +83,10 @@ hr {
 
 .chat-panel {
     height: auto;
+}
+
+.input-group {
+    border-radius: 0px !important;
 }
 
 /* NAVBAR */

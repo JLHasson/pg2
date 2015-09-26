@@ -45,15 +45,15 @@ $(document).ready(function() {
             console.log('enter');
             sendMsg();
         }
-	})
+	});
 
-    $('.chat-panel').height($('#player').height());
+    $('.portlet-body').height($('#player').height() - $('.chat-title').height() - $('#input-container').height() - $('hr').height());
 
 	// Ask Web Server, Do I need to update? (every 500ms)
 	setInterval(getCurrentVideo, 500);
 
 	// Update Chat Box
-	setInterval(getMessageFeed, 500);
+	//setInterval(getMessageFeed, 500);
 });
 
 function getCurrentVideo() {
@@ -134,7 +134,7 @@ function updateYoutubeFrame(video_id) {
 }
 
 function updateViewersLabel(viewer_count) {
-	
+
 	$('#viewersCount').html(viewer_count);
 }
 
