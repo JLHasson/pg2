@@ -11,9 +11,7 @@ $(document).ready(function() {
     for (var i = 0; i < column_ids.length; i++) {
 
     	$('#' + column_ids[i]).on('click', function() {
-    		
-    		console.log($(this).html());
-    		rebuildTable($(this).html());
+    		rebuildTable(this.id);
     	});
     }
 });
@@ -100,9 +98,9 @@ function compareSkips(a,b) {
 }
 
 function comparePercentageWatched(a,b) {
-  if (parseInt(a.percentageWatched) < parseInt(b.percentageWatched))
+  if (a.percentageWatched < b.percentageWatched)
     return 1;
-  if (parseInt(a.percentageWatched) > parseInt(b.percentageWatched))
+  if (a.percentageWatched > b.percentageWatched)
     return -1;
   return 0;
 }
