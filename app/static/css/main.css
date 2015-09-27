@@ -8,8 +8,8 @@ h2 {
 }
 
 hr {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .footer {
@@ -24,20 +24,12 @@ hr {
     margin: 20px 0;
 }
 
-.container .ghbtn {
-    margin: 20px 0;
-}
-
 .footer .ul .li {
     margin-right: 10px;
 }
 
 .upper-section {
     margin-top: 20px;
-}
-
-.lower-section {
-
 }
 
 .skip-section {
@@ -75,6 +67,7 @@ hr {
 
 .panel {
     border-radius: 0px !important;
+    display: block !important;
 }
 
 .chat-panel {
@@ -83,6 +76,18 @@ hr {
 
 #skip-button {
     width: 100%;
+}
+
+.input-group {
+    border-radius: 0px !important;
+}
+
+#msgInput {
+    border-radius: 0px !important;
+}
+
+.submit-btn {
+    border-radius: 0px !important;
 }
 
 /* NAVBAR */
@@ -149,9 +154,8 @@ hr {
 /* END NAVBAR */
 
 /* BUTTON STUFF */
-.btn {
+.skip-btn {
     padding: 14px 24px;
-    /*border: 0 none;*/
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;

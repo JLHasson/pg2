@@ -50,6 +50,8 @@ class VideoTracker:
 
         logging.info("Updated queue (" + str(len(self.queue)) + "): " + str([u[0] for u in self.queue]))
 
+        random.shuffle(self.queue)
+
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()
 
