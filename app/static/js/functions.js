@@ -101,7 +101,7 @@ function getMessageFeed() {
 					} else {
 						// Print anyways until server time is fixed
 						$('#chat-feed').append(getMsgHTML(msgFeed[i]));
-						
+
 						// Scroll Msg Feed to latest message
 						$('#chat-feed').animate({
 							scrollTop: $('#chat-feed').get(0).scrollHeight
