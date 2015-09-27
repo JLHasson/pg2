@@ -160,23 +160,25 @@ function getMsgHTML(msg) {
 
 function sendMsg() {
 	var postMsgURL = '/api/chat'
-	var msgInput = $('#msgInput').val();
+	var msgInput = $('#msgInput').val().trim();
 
-	msgInput = msgInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+	if (msgInput != '') {
+		msgInput = msgInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-	// Clear input
-	$('#msgInput').val('');
+		// Clear input
+		$('#msgInput').val('');
 
-	$.ajax({
-			type: "GET",
-			url: postMsgURL,
-			headers: {
-				'msg': msgInput
-			},
-			success: function(response) {
-				console.log(response);
-			}
-	});
+		$.ajax({
+				type: "GET",
+				url: postMsgURL,
+				headers: {
+					'msg': msgInput
+				},
+				success: function(response) {
+					console.log(response);
+				}
+		});		
+	}
 }
 
 function parseResponse(json_text) {
