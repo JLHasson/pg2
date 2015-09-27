@@ -1,6 +1,6 @@
 console.log('stats.js');
 
-$(document).ready(function() { 
+$(document).ready(function() {
 
 	/* Set Up Youtube IFrame Player */
 
@@ -13,9 +13,9 @@ $(document).ready(function() {
 
 	// Default toggle values for sorting
 	toggleFunctions = { 'Rank': true,
-						'Viewers': true, 
+						'Viewers': true,
 						'Skips': true,
-						'PercentagePlayed': true, 
+						'PercentagePlayed': true,
 						'TimePlayed': true,
 						'Length': true,
 						'LastPlayed': true};
@@ -32,20 +32,19 @@ $(document).ready(function() {
     	});
     }
 
-    // On Click Listeners
-    $('.r').on("click", function() {
-    	console.log(this);
-    });
+	$('#myModal').on('hidden.bs.modal', function () {
+		player.stopVideo();
+	});
 });
 
 function buildTable() {
 	var apiVideos = '/api/videos.json';
-	
+
 	$.get(apiVideos, function(json_text) {
 
 		var json = JSON.parse(json_text);
 		console.log(json);
-		
+
 		// Append to Table
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(getRowHTML(json[i]));
@@ -53,23 +52,24 @@ function buildTable() {
 		// On Click Listeners
 	    $('.r').on("click", function() {
 	    	console.log(this.id);
+			updateYoutubeFrame(this.id);
 	    });
 	})
 }
 
 function rebuildTable(column) {
-	
+
 	// Used for Sorting
 	var compareFunctions = {'Rank': compareRanks,
-							'Viewers': compareViewers, 
+							'Viewers': compareViewers,
 							'Skips': compareSkips,
-							'PercentagePlayed': comparePercentageWatched, 
+							'PercentagePlayed': comparePercentageWatched,
 							'TimePlayed': compareWatched,
 							'Length': compareLength,
 							'LastPlayed': compareLastPlayed};
 
 	var apiVideos = '/api/videos.json';
-	
+
 	$.get(apiVideos, function(json_text) {
 
 		var json = JSON.parse(json_text);
@@ -79,7 +79,7 @@ function rebuildTable(column) {
 
 		toggleFunctions[column] = !toggleFunctions[column];
 		console.log(toggleFunctions[column]);
-		
+
 		// Remove Old Rows
 		$('.r').remove();
 
@@ -87,16 +87,21 @@ function rebuildTable(column) {
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(getRowHTML(json[i]));
 		}
+
 		// On Click Listeners
 	    $('.r').on("click", function() {
 	    	console.log(this.id);
+			updateYoutubeFrame(this.id);
+			// player.loadVideoById(this.id.toString());
+			// player.playVideo();
+			// createYoutubeFrame(this.id);
 	    });
 	})
 }
 
 function getRowHTML(json) {
-	var ret = 
-	'<tr class="r" id="' + json.id + '">' +
+	var ret =
+	'<tr class="r" data-toggle="modal" data-target="#myModal" id="' + json.id + '">' +
 		'<td>' + json.rank + '</td>' +
 		'<td id="'+ json.id +'">' + json.title + '</td>' +
 		'<td>' + json.viewers + '</td>' +
@@ -115,13 +120,13 @@ function compareRanks(a,b) {
 	    return 1;
 	  if (a.rank > b.rank)
 	    return -1;
-	  return 0;	
+	  return 0;
 	} else {
 	  if (a.rank < b.rank)
 	    return -1;
 	  if (a.rank > b.rank)
 	    return 1;
-	  return 0;			
+	  return 0;
 	}
 }
 
@@ -131,13 +136,13 @@ function compareViewers(a,b) {
 	    return 1;
 	  if (a.viewers > b.viewers)
 	    return -1;
-	  return 0;	
+	  return 0;
 	} else {
 	  if (a.viewers < b.viewers)
 	    return -1;
 	  if (a.viewers > b.viewers)
 	    return 1;
-	  return 0;			
+	  return 0;
 	}
 }
 
@@ -153,7 +158,7 @@ function compareSkips(a,b) {
 	    return -1;
 	  if (a.skips > b.skips)
 	    return 1;
-	  return 0;  	
+	  return 0;
   }
 }
 
@@ -163,13 +168,13 @@ function comparePercentageWatched(a,b) {
 	    return 1;
 	  if (a.percentageWatched > b.percentageWatched)
 	    return -1;
-	  return 0;  	
+	  return 0;
   } else {
   if (a.percentageWatched < b.percentageWatched)
 	    return -1;
 	  if (a.percentageWatched > b.percentageWatched)
 	    return 1;
-	  return 0;  	
+	  return 0;
   }
 }
 
@@ -179,13 +184,13 @@ function compareWatched(a,b) {
 	    return 1;
 	  if (a.watched > b.watched)
 	    return -1;
-	  return 0;  	
+	  return 0;
   } else {
   	  if (a.watched < b.watched)
 	    return -1;
 	  if (a.watched > b.watched)
 	    return 1;
-	  return 0;  	
+	  return 0;
   }
 }
 
@@ -195,13 +200,13 @@ function compareLength(a,b) {
 	    return 1;
 	  if (a["length"] > b["length"])
 	    return -1;
-	  return 0;  	
+	  return 0;
   } else {
   	  if (a["length"] < b["length"])
 	    return -1;
 	  if (a["length"] > b["length"])
 	    return 1;
-	  return 0;  	
+	  return 0;
   }
 }
 
@@ -211,13 +216,13 @@ function compareLastPlayed(a,b) {
 	    return 1;
 	  if (a.timestamp > b.timestamp)
 	    return -1;
-	  return 0;	  	
+	  return 0;
   } else {
 	  if (a.timestamp < b.timestamp)
 	    return -1;
 	  if (a.timestamp > b.timestamp)
 	    return 1;
-	  return 0;	
+	  return 0;
   }
 }
 
@@ -243,26 +248,43 @@ function createYoutubeFrame(video_id) {
 	});
 }
 
+function updateYoutubeFrame(video_id) {
+
+	// console.log("updateYoutubeFrame to: " + video_id);
+
+	console.log("Change Video to: " + video_id);
+
+	player.loadVideoById({
+        'videoId': video_id
+    });
+}
+
 /* Youtube API Functions */
 
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
 	// Load Current Video
-	var getVideoURL = '/api/get';
-	$.ajax({
-			type: "GET",
-			url: getVideoURL,
-			success: createYoutubeFrame
-		});
+	// var getVideoURL = '/api/get';
+	// $.ajax({
+	// 		type: "GET",
+	// 		url: getVideoURL,
+	// 		success: createYoutubeFrame
+	// 	});
+	var video_id = $('.r').first().id;
+	console.log(video_id);
+	var test_id = 'M7lc1UVf-VE';
+
+	createYoutubeFrame(test_id);
 }
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-	event.target.playVideo();
+	// event.target.playVideo();
+	stopVideo();
 
 	// Check to see if you need to load a new VideoById
-	getCurrentVideo();
+	// getCurrentVideo();
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -273,9 +295,9 @@ function onPlayerStateChange(event) {
 }
 
 function onPlayerError(event) {
-    if (event.data == 5 || event.data == 101 || event.data == 150) {
-        $.ajax({url: '/api/skip'});
-    }
+    // if (event.data == 5 || event.data == 101 || event.data == 150) {
+    //     $.ajax({url: '/api/skip'});
+    // }
 }
 
 function stopVideo() {

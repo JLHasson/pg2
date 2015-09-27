@@ -180,6 +180,7 @@ input {
 }
 .navbar-default .navbar-brand {
   color: #d9534f;
+  padding: 0;
 }
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: #ffbbbc;
@@ -282,6 +283,7 @@ input {
     box-shadow: none;
 }
 
+/*ANIMATION*/
 .spin-animation {
     -webkit-animation-name: spin;
     -webkit-animation-duration: 500ms;
@@ -313,4 +315,12 @@ input {
 @keyframes spin {
     from {transform:rotate(0deg);}
     to {transform:rotate(360deg);}
+}
+/*END ANIMATION*/
+
+.modal.modal-wide .modal-dialog {
+  width: 70%;
+}
+.modal-wide .modal-body {
+  overflow-y: auto;
 }
