@@ -85,6 +85,8 @@ class VideoTracker:
         v.timestamp = datetime.datetime.fromtimestamp(self.start_time)
         v.length = self.currentVideo[1]
         v.watched = int(time.time() - self.start_time)
+        if v.watched > v.length:
+            v.watched = v.length
         v.viewers = len(self.ip_list)
         v.skips = len(self.skip_list)
         v.title = self.currentVideo[2]

@@ -60,3 +60,15 @@ def video_length(id):
 
 def parse_time(time):
     return isodate.parse_duration(time).total_seconds()
+
+
+def get_title(id):
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+                    developerKey=DEVELOPER_KEY)
+
+    resp = youtube.videos().list(
+        part="id,snippet",
+        id=id
+    ).execute()
+
+    return resp.get("items", [])[0]["snippet"]["title"]
