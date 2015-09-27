@@ -67,7 +67,7 @@ class VideoTracker:
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
-            self.last_was_skipped = True
+            self.last_was_skipped = False
 
         self.ip_list.add(ip)
         j = {
