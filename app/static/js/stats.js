@@ -37,13 +37,13 @@ function buildTable() {
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(
 								'<tr class="r">' +
-									'<td>' + 'Rank' + '</td>' +
+									'<td>' + json[i].rank + '</td>' +
 									'<td>' + json[i].id + '</td>' +
 									'<td>' + json[i].viewers + '</td>' +
 									'<td>' + json[i].skips + '</td>' +
 									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + json[i].watched + '</td>' +
-									'<td>' + json[i]["length"] + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
 									'<td>' + json[i].timestamp + '</td>' +
 								'</tr>');
 		}
@@ -81,13 +81,13 @@ function rebuildTable(column) {
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(
 								'<tr class="r">' +
-									'<td>' + 'Rank' + '</td>' +
+									'<td>' + json[i].rank + '</td>' +
 									'<td>' + json[i].id + '</td>' +
 									'<td>' + json[i].viewers + '</td>' +
 									'<td>' + json[i].skips + '</td>' +
 									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + json[i].watched + '</td>' +
-									'<td>' + json[i]["length"] + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
 									'<td>' + json[i].timestamp + '</td>' +
 								'</tr>');
 		}
@@ -194,5 +194,9 @@ function compareLastPlayed(a,b) {
 	    return 1;
 	  return 0;	
   }
+}
 
+function secondsToTimeFormat(seconds) {
+	var myDate = new Date(null, null, null, null, null, seconds).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0]
+	return myDate
 }
