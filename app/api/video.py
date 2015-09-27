@@ -1,9 +1,11 @@
 from threading import Thread
-import random
 import time
 import json
 import logging
-
+import datetime
+import random
+from app import db
+from app.models import Video
 from .youtube import youtube_search
 
 logging.getLogger("werkzeug").setLevel(logging.WARNING)
@@ -91,6 +93,7 @@ class VideoTracker:
         return int(100 * skips/needed)
 
     def next_video(self):
+        self.create_db_entry()
         logging.info("Video " + self.queue[0][0] + " watched for " + str(self.running_time()) + "/" + str(self.queue[0][1]) + "s")
         logging.debug("Watched by " + str(len(self.ip_list)) + ": " + str(self.ip_list))
         logging.debug("Skipped by " + str(len(self.skip_list)) + ": " + str(self.skip_list))
@@ -104,6 +107,16 @@ class VideoTracker:
 
     def running_time(self):
         return int(time.time() - self.start_time)
+
+    def create_db_entry(self):
+        v = Video(self.queue[0][0])
+        v.timestamp = datetime.datetime.fromtimestamp(self.start_time)
+        v.length = self.queue[0][1]
+        v.watched = int(time.time() - self.start_time)
+        v.viewers = len(self.ip_list)
+        v.skips = len(self.skip_list)
+        db.session.add(v)
+        db.session.commit()
 
     def unregister(self, ip):
         self.skip_list.remove(ip)
