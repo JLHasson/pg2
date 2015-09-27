@@ -12,25 +12,27 @@
         <link rel="stylesheet" href="/static/css/main.css">
     </head>
     <body>
-        <div class="container-fullwidth">
-            <nav class="navbar navbar-default">
-              <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="#">YouVote</a>
-                </div>
-                </div><!-- /.navbar-collapse -->
-              </div><!-- /.container-fluid -->
-            </nav>
+        <div class="site-wrapper">
+            <div class="container-fullwidth">
+                <nav class="navbar navbar-default">
+                  <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">pg2</a>
+                    </div>
+                  </div><!-- /.navbar-collapse -->
+                </nav>
+            </div><!-- /.container-fluid -->
 
-            <div class="container">
+
+            <div class="container main-wrapper">
                 <div class="panel upper-panel">
                     <div class="row upper-section">
                         <div class="col-md-9 progress-section">
                             <div class="progress-wrapper">
-                                <div class="row">
-                                    <p class="col-md-9 lead">Progress to Skip</p>
-                                    <p class="col-md-3 lead text-right">Viewers: <span id="viewersCount">0</span></p>
+                                <div class="row progress-info-wrapper">
+                                    <p class="col-xs-6 col-md-6 lead">Skip Progress</p>
+                                    <p class="col-xs-6 col-md-6 lead text-right">Viewers: <span id="viewersCount">0</span></p>
                                 </div>
                                 <div class="progress">
                                   <div class="progress-bar custom-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -41,8 +43,8 @@
                         </div>
                         <div class="col-md-3">
                             <div class="skip-section">
-                                <button id="skip-button" class="btn skip-btn btn-default btn-lg sharp"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Skip</button>
-                                <h1 class="text-center" id="skipped" style="display: none;"><small>Skipped!</small></h2>
+                                <button id="skip-button" class="btn skip-btn btn-default btn-lg sharp">Skip <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+                                <h1 class="text-center" id="skipped" style="display: none; margin-bottom: 15px;"><small>Skipped!</small></h2>
                             </div>
                         </div>
                     </div>
@@ -67,33 +69,34 @@
                                 </div>
                             </div>
                             <div id="input-container">
-                                <div class="input-group">
-                                   <input type="text" class="form-control" id="msgInput">
-                                   <span class="input-group-btn">
+                                <!-- <div class="input-group"> -->
+                                   <input type="text" class="form-control" id="msgInput" placeholder="Send a message">
+                                   <!-- <span class="input-group-btn">
                                         <button class="btn btn-default submit-btn" id="submitMsg" type="button">Go!</button>
-                                   </span>
-                                </div>
+                                   </span> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="container">
-                    <ul class="nav navbar-nav">
-                        <li><p class="text-muted"><a href="https://github.com/JLHasson/YouVote">Made with <i class="fa fa-heart"></i> for HackGT 2015.</a></p><li>
-                    </ul>
-                </div>
-            </footer>
-            <script>
-              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        </div> <!-- END SITE-WRAPPER -->
+        <footer class="footer">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li><p class="text-muted made-with-info"><a href="https://github.com/JLHasson/YouVote">Made with <i class="fa fa-heart"></i> for HackGT 2015.</a></p><li>
+                </ul>
+            </div>
+        </footer>
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-              ga('create', 'UA-68140737-1', 'auto');
-              ga('send', 'pageview');
+          ga('create', 'UA-68140737-1', 'auto');
+          ga('send', 'pageview');
 
-            </script>
+        </script>
     </body>
 </html>
