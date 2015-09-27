@@ -1,4 +1,4 @@
-from time import gmtime, strftime
+from time import localtime, strftime
 import json
 
 class Chat:
@@ -20,7 +20,7 @@ class Chat:
 
     def appendMsg(self, msg):
         self.msgCount += 1
-        self.msgArray.insert(0, {'msg': msg, 'time': strftime(("%I:%M %p"), gmtime())})
+        self.msgArray.insert(0, {'msg': msg, 'time': strftime(("%I:%M %p"), localtime())})
         if len(self.msgArray) > self.maxSize:
             self.msgArray.pop()
 
