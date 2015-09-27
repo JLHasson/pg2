@@ -27,13 +27,11 @@ class Video(db.Model):
     @staticmethod
     def avgVideoLength():
         avgVidLength = Video.query.with_entities(func.avg(Video.length).label("avgLength")).all()
-        print(avgVidLength[0][0])
         return avgVidLength[0][0]
 
     @staticmethod
     def avgViewerCount():
         avgViewerCount = Video.query.with_entities(func.avg(Video.viewers).label("avgViewers")).all()
-        print(avgViewerCount[0][0])
         return avgViewerCount[0][0]
 
     @staticmethod
