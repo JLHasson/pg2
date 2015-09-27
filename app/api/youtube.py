@@ -3,6 +3,7 @@
 from apiclient.discovery import build
 import isodate
 import logging
+import random
 logging.getLogger("googleapiclient.discovery").setLevel(logging.WARNING)
 
 
@@ -27,15 +28,17 @@ def youtube_search(search_term, results):
         maxResults=results
     ).execute()
 
-    videos = []
 
     # Add each result to the appropriate list, and then display the lists of
     # matching videos
-    for search_result in search_response.get("items", []):
-        if search_result["id"]["kind"] == "youtube#video":
-              videos.append((search_result["id"]["videoId"], video_length(search_result["id"]["videoId"])))
+    result = search_response.get("items", [])
+    vid = None
+    while not vid or vid["id"]["kind"] != "youtube#video":
+        vid = result[random.randint(0, len(result)-1)]
 
-    return videos
+    id = vid["id"]["videoId"]
+
+    return id, video_length(id)
 
 
 def video_length(id):
