@@ -1,4 +1,5 @@
 import datetime
+import json
 from app import db
 from sqlalchemy.sql import func
 
@@ -34,3 +35,10 @@ class Video(db.Model):
         avgViewerCount = Video.query.with_entities(func.avg(Video.viewers).label("avgViewers")).all()
         print(avgViewerCount[0][0])
         return avgViewerCount[0][0]
+
+    @staticmethod
+    def getVideosJSON():
+        json_text = []
+        for vo in Video.query.all():
+            json_text.append({"id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": '{0:.1f} %'.format((vo.watched/vo.length)*100)})
+        return json_text
