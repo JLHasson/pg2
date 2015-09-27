@@ -22,6 +22,8 @@ class VideoTracker:
 
     def __init__(self):
         self.word_list = []
+
+        self.currentVideo = None
         self.queue = []
         self.queue_thresh = 10
         self.queue_batch = 3
@@ -52,6 +54,9 @@ class VideoTracker:
 
         random.shuffle(self.queue)
 
+        if not self.currentVideo:
+            self.currentVideo = self.queue.pop(0)
+
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()
 
@@ -63,7 +68,7 @@ class VideoTracker:
         return term.strip()
 
     def get_video(self, ip):
-        if self.running_time() >= self.queue[0][1]:
+        if self.running_time() >= self.currentVideo[1]:
             t = Thread(target=self.next_video)
             t.setDaemon(True)
             t.start()
@@ -71,7 +76,7 @@ class VideoTracker:
 
         self.ip_list.add(ip)
         j = {
-            "id": self.queue[0][0],
+            "id": self.currentVideo[0],
             "time": self.running_time(),
             "users": len(self.ip_list),
             "skips": self.skip_progress(),
@@ -99,8 +104,8 @@ class VideoTracker:
         logging.debug("Skipped by " + str(len(self.skip_list)) + ": " + str(self.skip_list))
         self.skip_list = set()
         self.ip_list = set()
-        self.queue.pop(0)
-        logging.info("Now showing " + self.queue[0][0])
+        self.currentVideo = self.queue.pop(0)
+        logging.info("Now showing " + self.currentVideo[0])
         self.start_time = time.time()
         if len(self.queue) < self.queue_thresh:
             self.populate_queue()
@@ -109,9 +114,9 @@ class VideoTracker:
         return int(time.time() - self.start_time)
 
     def create_db_entry(self):
-        v = Video(self.queue[0][0])
+        v = Video(self.currentVideo[0])
         v.timestamp = datetime.datetime.fromtimestamp(self.start_time)
-        v.length = self.queue[0][1]
+        v.length = self.currentVideo[1]
         v.watched = int(time.time() - self.start_time)
         v.viewers = len(self.ip_list)
         v.skips = len(self.skip_list)
