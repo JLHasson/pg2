@@ -24,16 +24,24 @@ $(document).ready(function() {
 
     $('#skip-button').on("click", function() {
         if ($(this).hasClass("btn-danger")) {
-    		//nothing
+            $('.skip-arrow').addClass('spin-animation');
         } else {
             var skipURL = '/api/skip';
     		console.log("skip");
     		$(this).toggleClass("btn-danger");
+            $('.skip-arrow').addClass('spin-animation');
 
     	    // Get Request to increment skip count
     	    $.ajax({url: skipURL});
         }
 	});
+
+    $('.skip-arrow').on(
+        "webkitAnimationEnd oanimationend msAnimationEnd animationend",
+        function() {
+            $(this).removeClass("spin-animation");
+        }
+    );
 
     $('.chat-title').on("click", function() {
         if ($('.chat-panel').hasClass("no-chat")) {
@@ -300,15 +308,3 @@ function checkSkipped(video_id, last_skipped, start_time) {
 		updateYoutubeFrame(video_id, start_time);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
