@@ -1,7 +1,16 @@
 console.log('stats.js');
 
 $(document).ready(function() { 
-    
+
+	// Initialize toggle views
+	toggleCompareViewers = true;
+
+	toggleFunctions = { 'Viewers': true, 
+						'Skips': true,
+						'PercentagePlayed': true, 
+						'TimePlayed': true,
+						'Length': true,
+						'LastPlayed': true};
 
     // Build Table sorted by Viewers
     buildTable();
@@ -51,6 +60,8 @@ function rebuildTable(column) {
 							'Length': compareLength,
 							'LastPlayed': compareLastPlayed};
 
+
+
 	var apiVideos = '/api/videos.json';
 	
 	$.get(apiVideos, function(json_text) {
@@ -59,6 +70,9 @@ function rebuildTable(column) {
 		console.log(json);
 
 		json.sort(compareFunctions[column]);
+
+		toggleFunctions[column] = !toggleFunctions[column];
+		console.log(toggleFunctions[column]);
 		
 		// Remove Old Rows
 		$('.r').remove();
@@ -82,49 +96,103 @@ function rebuildTable(column) {
 }
 
 function compareViewers(a,b) {
-  if (a.viewers < b.viewers)
-    return 1;
-  if (a.viewers > b.viewers)
-    return -1;
-  return 0;
+
+  if (toggleFunctions['Viewers']) {
+	  if (a.viewers < b.viewers)
+	    return 1;
+	  if (a.viewers > b.viewers)
+	    return -1;
+	  return 0;	
+	} else {
+	  if (a.viewers < b.viewers)
+	    return -1;
+	  if (a.viewers > b.viewers)
+	    return 1;
+	  return 0;			
+	}
+  
 }
 
 function compareSkips(a,b) {
-  if (a.skips < b.skips)
-    return 1;
-  if (a.skips > b.skips)
-    return -1;
-  return 0;
+  if (toggleFunctions['Skips']) {
+	  if (a.skips < b.skips)
+	    return 1;
+	  if (a.skips > b.skips)
+	    return -1;
+	  return 0;
+  } else {
+ 	  if (a.skips < b.skips)
+	    return -1;
+	  if (a.skips > b.skips)
+	    return 1;
+	  return 0;  	
+  }
+  
 }
 
 function comparePercentageWatched(a,b) {
+  if (toggleFunctions['PercentagePlayed']) {
+	  if (a.percentageWatched < b.percentageWatched)
+	    return 1;
+	  if (a.percentageWatched > b.percentageWatched)
+	    return -1;
+	  return 0;  	
+  } else {
   if (a.percentageWatched < b.percentageWatched)
-    return 1;
-  if (a.percentageWatched > b.percentageWatched)
-    return -1;
-  return 0;
+	    return -1;
+	  if (a.percentageWatched > b.percentageWatched)
+	    return 1;
+	  return 0;  	
+  }
 }
 
 function compareWatched(a,b) {
-  if (a.watched < b.watched)
-    return 1;
-  if (a.watched > b.watched)
-    return -1;
-  return 0;
+  if (toggleFunctions['TimePlayed']) {
+	  if (a.watched < b.watched)
+	    return 1;
+	  if (a.watched > b.watched)
+	    return -1;
+	  return 0;  	
+  } else {
+  	  if (a.watched < b.watched)
+	    return -1;
+	  if (a.watched > b.watched)
+	    return 1;
+	  return 0;  	
+  }
+
 }
 
 function compareLength(a,b) {
-  if (a["length"] < b["length"])
-    return 1;
-  if (a["length"] > b["length"])
-    return -1;
-  return 0;
+  if (toggleFunctions['Length']) {
+	  if (a["length"] < b["length"])
+	    return 1;
+	  if (a["length"] > b["length"])
+	    return -1;
+	  return 0;  	
+  } else {
+  	  if (a["length"] < b["length"])
+	    return -1;
+	  if (a["length"] > b["length"])
+	    return 1;
+	  return 0;  	
+  }
+
 }
 
 function compareLastPlayed(a,b) {
-  if (a.timestamp < b.timestamp)
-    return 1;
-  if (a.timestamp > b.timestamp)
-    return -1;
-  return 0;	
+  if (toggleFunctions['LastPlayed']) {
+	  if (a.timestamp < b.timestamp)
+	    return 1;
+	  if (a.timestamp > b.timestamp)
+	    return -1;
+	  return 0;	  	
+  } else {
+	  if (a.timestamp < b.timestamp)
+	    return -1;
+	  if (a.timestamp > b.timestamp)
+	    return 1;
+	  return 0;	
+  }
+
 }
