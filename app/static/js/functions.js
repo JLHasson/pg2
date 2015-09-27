@@ -270,6 +270,13 @@ function updateViewersLabel(viewer_count) {
         $('#viewersCount').addClass('label-primary');
         $('#viewersCount').html(viewer_count);
     }
+
+
+	if (viewer_count == 1) {
+		$('#viewersLabel').html("person");
+	} else {
+		$('#viewersLabel').html("people");
+	}
 }
 
 function removeViewerClass(class_name) {
