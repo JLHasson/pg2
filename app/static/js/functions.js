@@ -65,6 +65,10 @@ $(document).ready(function() {
 
 	// Update Chat Box
 	setInterval(getMessageFeed, 500);
+
+	$(window).unload(function(){
+		$.ajax({url: "/api/leave", async: false});
+	});
 });
 
 function getInitialChatBoxMessage() {
@@ -293,7 +297,18 @@ function checkSkipped(video_id, last_skipped, start_time) {
 
         setTimeout(updateYoutubeFrame, 500, video_id, start_time);
     } else {
-        updateYoutubeFrame(video_id, start_time);
-    }
-
+		updateYoutubeFrame(video_id, start_time);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

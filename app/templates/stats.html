@@ -4,12 +4,13 @@
         <title>YouVote</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="/static/js/functions.js"></script>
+        <script src="/static/js/stats.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/static/css/main.css">
+        <script type="text/javascript" src="http://tablesorter.com/__jquery.tablesorter.min.js"></script> 
     </head>
     <body>
         <div class="container-fullwidth">
@@ -24,7 +25,31 @@
             </nav>
 
             <div class="container">
-                <h1>Stats</h1>
+
+                <h3 class="text-center">Best Videos</h3>
+                <table class="table table-striped table-hover">
+                  <tr>
+                    <th>Rank</th><th>Video</th><th>Viewers</th><th>Skips</th><th>% Played</th><th>Time Played</th><th>Length</th><th>Last Played</th>
+                  </tr>
+                
+                {% block body %}
+                {% for record in best %}
+                <tr>
+                  <td>Rank</td>
+                  <td>{{ record.ytid }}</td>
+                  <td>{{ record.viewers }}</td>
+                  <td>{{ record.skips }}</td>
+                  <td>{{ '{0:.1f} %'.format((record.watched/record.length)*100) }}</td>
+                  <td>{{ record.watched }}</td>
+                  <td>{{ record.length }}</td>
+                  <td>{{ record.getDateTimeLastPlayed() }}</td>
+                </tr>
+                {% endfor %}
+                {% endblock %}
+
+                </table>
+
+                
             </div>
             <footer class="footer">
                 <div class="container">

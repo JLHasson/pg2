@@ -5,6 +5,7 @@ from flask import render_template
 from flask import request
 
 import logging
+from .models import Video
 
 logging.basicConfig(filename="server.log", level=logging.DEBUG)
 
@@ -24,7 +25,8 @@ def index():
 
 @app.route('/stats')
 def stats():
-    return render_template('stats.html')
+    vids = Video.query.order_by(Video.id).all()
+    return render_template('stats.html', best=vids)
 
 @app.route('/api/skip')
 def skip():
@@ -39,7 +41,6 @@ def get():
 
 @app.route('/api/chat', methods=["GET", "POST"])
 def postMsg():
-    print (request.headers)
     msg = request.headers.get('msg')
     if (msg != None):
         chat.appendMsg(msg)
@@ -47,5 +48,6 @@ def postMsg():
 
 @app.route('/api/leave')
 def leave():
-    ip = request.remote_addr
-    return tracker.unregister(ip)
+    ip = get_ip()
+    tracker.unregister(ip)
+    return None
