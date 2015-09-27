@@ -5,6 +5,7 @@ from flask import render_template
 from flask import request
 
 import logging
+from .models import Video
 
 logging.basicConfig(filename="server.log", level=logging.DEBUG)
 
@@ -24,7 +25,8 @@ def index():
 
 @app.route('/stats')
 def stats():
-    return render_template('stats.html')
+    vids = Video.query.order_by(Video.id)
+    return render_template('stats.html', best=vids)
 
 @app.route('/api/skip')
 def skip():
