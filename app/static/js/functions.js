@@ -133,6 +133,8 @@ function sendMsg() {
 	var postMsgURL = '/api/chat'
 	var msgInput = $('#msgInput').val();
 
+	msgInput = msgInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 	// Clear input
 	$('#msgInput').val('');
 
