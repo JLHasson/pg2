@@ -44,7 +44,7 @@
 <!--                 {% block body %}
                 {% for record in best %}
                 <tr>
-                  <td>Rank</td>
+                  <td>{{ '{0:.1f} '.format((record.watched/record.length)+(record.viewers-record.skips)/(record.viewers+1))}}</td>
                   <td>{{ record.ytid }}</td>
                   <td>{{ record.viewers }}</td>
                   <td>{{ record.skips }}</td>
