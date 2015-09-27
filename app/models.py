@@ -52,5 +52,5 @@ class Video(db.Model):
         q = session.query(Video)
         vids = q.order_by(Video.id).all()
         for vo in vids:
-            json_text.append({"rank": vo.getRank(), "id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": vo.getPercentageWatched()})
+            json_text.append({"rank": vo.getRank(), "title": vo.title, "query": vo.query, "id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": vo.getPercentageWatched()})
         return json_text
