@@ -72,9 +72,6 @@ function rebuildTable(column) {
 	    $('.r').on("click", function() {
 	    	console.log(this.id);
 			updateYoutubeFrame(this.id);
-			// player.loadVideoById(this.id.toString());
-			// player.playVideo();
-			// createYoutubeFrame(this.id);
 	    });
 	})
 }
