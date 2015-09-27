@@ -23,6 +23,7 @@ $(document).ready(function() {
 	/* Load On Click Listeners */
 
     $('#skip-button').on("click", function() {
+        originalSkip();
         if ($(this).hasClass("btn-danger")) {
             $('.skip-arrow').addClass('spin-animation');
         } else {
@@ -35,6 +36,13 @@ $(document).ready(function() {
     	    $.ajax({url: skipURL});
         }
 	});
+
+    $('#skip-button').hover(function() {
+        $('.skip-btn-inner').html('Key <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> to skip');
+        setTimeout(originalSkip, 1250);
+    }, function() {
+        $('.skip-btn-inner').html('Skip <span class="glyphicon glyphicon-chevron-right skip-arrow" aria-hidden="true"></span>');
+    });
 
     $('.skip-arrow').on(
         "webkitAnimationEnd oanimationend msAnimationEnd animationend",
@@ -78,6 +86,10 @@ $(document).ready(function() {
 		$.ajax({url: "/api/leave", async: false});
 	});
 });
+
+function originalSkip() {
+    $('.skip-btn-inner').html('Skip <span class="glyphicon glyphicon-chevron-right skip-arrow" aria-hidden="true"></span>');
+}
 
 function getInitialChatBoxMessage() {
 	var ret =
@@ -247,7 +259,8 @@ function createYoutubeFrame(json_text) {
 			videoId: video_id,
 			events: {
 			'onReady': onPlayerReady,
-			'onStateChange': onPlayerStateChange
+			'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
 			}
 	});
 }
@@ -279,6 +292,12 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 function onPlayerStateChange(event) {
 
+}
+
+function onPlayerError(event) {
+    if (event.data == 5 || event.data == 101 || event.data == 150) {
+        $.ajax({url: '/api/skip'});
+    }
 }
 
 function stopVideo() {

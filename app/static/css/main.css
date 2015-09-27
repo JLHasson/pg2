@@ -174,7 +174,7 @@ input {
   color: #ecf0f1;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #ecf0f1;
+  color: #d9534f;
 }
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color: #ffbbbc;
