@@ -84,8 +84,11 @@ class VideoTracker:
         }
         return json.dumps(j)
 
-    def reg_skip(self, id):
-        self.skip_list.add(id)
+    def reg_skip(self, ip):
+        self.skip_list.add(ip)
+        logging.debug("Skips " + str(len(self.skip_list)))
+        logging.debug("Needed " + str(self.skip_thresh * len(self.ip_list)))
+
         if len(self.skip_list) >= self.skip_thresh * len(self.ip_list):
             t = Thread(target=self.next_video)
             t.setDaemon(True)
@@ -99,7 +102,7 @@ class VideoTracker:
 
     def next_video(self):
         self.create_db_entry()
-        logging.info("Video " + self.queue[0][0] + " watched for " + str(self.running_time()) + "/" + str(self.queue[0][1]) + "s")
+        logging.info("Video " + self.currentVideo[0] + " watched for " + str(self.running_time()) + "/" + str(self.currentVideo[1]) + "s")
         logging.debug("Watched by " + str(len(self.ip_list)) + ": " + str(self.ip_list))
         logging.debug("Skipped by " + str(len(self.skip_list)) + ": " + str(self.skip_list))
         self.skip_list = set()
