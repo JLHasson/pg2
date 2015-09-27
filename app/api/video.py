@@ -94,6 +94,9 @@ class VideoTracker:
         self.skip_list.discard(ip)
         self.ip_list.discard(ip)
 
+        if len(self.skip_list) >= self.skip_thresh * len(self.ip_list):
+            self.next_video()
+
     class VideoQueue:
 
         def __init__(self):
@@ -105,9 +108,7 @@ class VideoTracker:
             self.word_list = []
             self.load_word_list()
 
-
             self.refill()
-
 
         def pop(self):
             ret = self.queue.pop(0)

@@ -50,4 +50,4 @@ def postMsg():
 def leave():
     ip = get_ip()
     tracker.unregister(ip)
-    return None
+    return "Left"
