@@ -2,6 +2,15 @@ console.log('stats.js');
 
 $(document).ready(function() { 
 
+	/* Set Up Youtube IFrame Player */
+
+	// 2. This code loads the IFrame Player API code asynchronously.
+	var tag = document.createElement('script');
+
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 	// Default toggle values for sorting
 	toggleFunctions = { 'Rank': true,
 						'Viewers': true, 
@@ -43,7 +52,7 @@ function buildTable() {
 		}
 		// On Click Listeners
 	    $('.r').on("click", function() {
-	    	console.log($(this).children('td').eq(1));
+	    	console.log(this.id);
 	    });
 	})
 }
@@ -80,16 +89,16 @@ function rebuildTable(column) {
 		}
 		// On Click Listeners
 	    $('.r').on("click", function() {
-	    	console.log($(this).children('td').eq(1));
+	    	console.log(this.id);
 	    });
 	})
 }
 
 function getRowHTML(json) {
 	var ret = 
-	'<tr class="r">' +
+	'<tr class="r" id="' + json.id + '">' +
 		'<td>' + json.rank + '</td>' +
-		'<td>' + json.title + '</td>' +
+		'<td id="'+ json.id +'">' + json.title + '</td>' +
 		'<td>' + json.viewers + '</td>' +
 		'<td>' + json.skips + '</td>' +
 		'<td>' + json.percentageWatched + '</td>' +
@@ -215,4 +224,60 @@ function compareLastPlayed(a,b) {
 function secondsToTimeFormat(seconds) {
 	var myDate = new Date(null, null, null, null, null, seconds).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0]
 	return myDate
+}
+
+/* Youtube API */
+
+// Used intially
+function createYoutubeFrame(video_id) {
+
+	player = new YT.Player('player', {
+			height: '390',
+			width: '640',
+			videoId: video_id,
+			events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
+			}
+	});
+}
+
+/* Youtube API Functions */
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+function onYouTubeIframeAPIReady() {
+	// Load Current Video
+	var getVideoURL = '/api/get';
+	$.ajax({
+			type: "GET",
+			url: getVideoURL,
+			success: createYoutubeFrame
+		});
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+	event.target.playVideo();
+
+	// Check to see if you need to load a new VideoById
+	getCurrentVideo();
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+function onPlayerStateChange(event) {
+
+}
+
+function onPlayerError(event) {
+    if (event.data == 5 || event.data == 101 || event.data == 150) {
+        $.ajax({url: '/api/skip'});
+    }
+}
+
+function stopVideo() {
+	player.stopVideo();
 }
