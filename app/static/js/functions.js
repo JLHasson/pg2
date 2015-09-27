@@ -265,6 +265,13 @@ function updateViewersLabel(viewer_count) {
     } else {
         $('#viewersCount').html(viewer_count);
     }
+
+
+	if (viewer_count == 1) {
+		$('#viewersLabel').html("person");
+	} else {
+		$('#viewersLabel').html("people");
+	}
 }
 
 // Used intially
