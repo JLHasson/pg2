@@ -255,16 +255,23 @@ function updateSkips(skips) {
 function updateViewersLabel(viewer_count) {
     var current_count = $('#viewersCount').html();
     if (viewer_count < current_count) {
-        $('#viewersCount').removeClass('label-success');
+        setTimeout(removeViewerClass, 1000, 'label-success');
         $('#viewersCount').addClass('label-danger');
         $('#viewersCount').html(viewer_count);
-    } else if (viewer_count >= current_count) {
-        $('#viewersCount').removeClass('label-danger');
+    } else if (viewer_count > current_count) {
+        setTimeout(removeViewerClass, 1000, 'label-danger');
         $('#viewersCount').addClass('label-success');
         $('#viewersCount').html(viewer_count);
     } else {
+        setTimeout(removeViewerClass, 1000, 'label-danger');
+        setTimeout(removeViewerClass, 1000, 'label-success');
+        $('#viewersCount').addClass('label-primary');
         $('#viewersCount').html(viewer_count);
     }
+}
+
+function removeViewerClass(class_name) {
+    $('#viewersCount').removeClass(class_name);
 }
 
 // Used intially
