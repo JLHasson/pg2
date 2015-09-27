@@ -83,12 +83,12 @@ function getRowHTML(json) {
 	'<tr class="r" style="cursor: pointer; cursor: hand;" data-toggle="modal" data-target="#myModal" id="' + json.id + '">' +
 		'<td>' + json.rank + '</td>' +
 		'<td id="'+ json.id +'">' + json.title + '</td>' +
-		'<td>' + json.viewers + '</td>' +
-		'<td>' + json.skips + '</td>' +
-		'<td>' + json.percentageWatched + '</td>' +
-		'<td>' + secondsToTimeFormat(json.watched) + '</td>' +
-		'<td>' + secondsToTimeFormat(json["length"]) + '</td>' +
-		'<td>' + json.timestamp + '</td>' +
+		'<td class="hidden-xs">' + json.viewers + '</td>' +
+		'<td class="hidden-xs">' + json.skips + '</td>' +
+		'<td class="hidden-xs">' + json.percentageWatched + '</td>' +
+		'<td class="hidden-xs">' + secondsToTimeFormat(json.watched) + '</td>' +
+		'<td class="hidden-xs">' + secondsToTimeFormat(json["length"]) + '</td>' +
+		'<td class="hidden-xs">' + json.timestamp + '</td>' +
 	'</tr>';
 	return ret;
 }
