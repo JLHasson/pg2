@@ -22,6 +22,11 @@ $(document).ready(function() {
     		rebuildTable(this.id);
     	});
     }
+
+    // On Click Listeners
+    $('.r').on("click", function() {
+    	console.log(this);
+    });
 });
 
 function buildTable() {
@@ -34,24 +39,18 @@ function buildTable() {
 		
 		// Append to Table
 		for (var i = 0; i < json.length; i++) {
-			$('#bestTable').append(
-								'<tr class="r">' +
-									'<td>' + json[i].rank + '</td>' +
-									'<td>' + json[i].id + '</td>' +
-									'<td>' + json[i].viewers + '</td>' +
-									'<td>' + json[i].skips + '</td>' +
-									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
-									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
-									'<td>' + json[i].timestamp + '</td>' +
-								'</tr>');
+			$('#bestTable').append(getRowHTML(json[i]));
 		}
-		
+		// On Click Listeners
+	    $('.r').on("click", function() {
+	    	console.log($(this).children('td').eq(1));
+	    });
 	})
 }
 
 function rebuildTable(column) {
 	
+	// Used for Sorting
 	var compareFunctions = {'Rank': compareRanks,
 							'Viewers': compareViewers, 
 							'Skips': compareSkips,
@@ -59,8 +58,6 @@ function rebuildTable(column) {
 							'TimePlayed': compareWatched,
 							'Length': compareLength,
 							'LastPlayed': compareLastPlayed};
-
-
 
 	var apiVideos = '/api/videos.json';
 	
@@ -79,20 +76,28 @@ function rebuildTable(column) {
 
 		// Append to Table
 		for (var i = 0; i < json.length; i++) {
-			$('#bestTable').append(
-								'<tr class="r">' +
-									'<td>' + json[i].rank + '</td>' +
-									'<td>' + json[i].id + '</td>' +
-									'<td>' + json[i].viewers + '</td>' +
-									'<td>' + json[i].skips + '</td>' +
-									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
-									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
-									'<td>' + json[i].timestamp + '</td>' +
-								'</tr>');
+			$('#bestTable').append(getRowHTML(json[i]));
 		}
-		
+		// On Click Listeners
+	    $('.r').on("click", function() {
+	    	console.log($(this).children('td').eq(1));
+	    });
 	})
+}
+
+function getRowHTML(json) {
+	var ret = 
+	'<tr class="r">' +
+		'<td>' + json.rank + '</td>' +
+		'<td>' + json.title + '</td>' +
+		'<td>' + json.viewers + '</td>' +
+		'<td>' + json.skips + '</td>' +
+		'<td>' + json.percentageWatched + '</td>' +
+		'<td>' + secondsToTimeFormat(json.watched) + '</td>' +
+		'<td>' + secondsToTimeFormat(json["length"]) + '</td>' +
+		'<td>' + json.timestamp + '</td>' +
+	'</tr>';
+	return ret;
 }
 
 function compareRanks(a,b) {
