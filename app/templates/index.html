@@ -1,36 +1,4 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>pg2</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="/static/js/functions.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/static/css/main.css">
-        <link rel="icon" type="image/png" href="/static/assets/favicon-32x32.png" sizes="32x32" />
-        <link rel="icon" type="image/png" href="/static/assets/favicon-16x16.png" sizes="16x16" />
-    </head>
-    <body>
-        <div class="site-wrapper">
-            <div class="container-fullwidth">
-                <nav class="navbar navbar-default">
-                  <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                      <a class="navbar-brand" href="/">
-                          <img src="/static/assets/pg2-logo.png" alt="Brand" width="50px" height="50px" style="padding: 0;">
-                      </a>
-                    </div>
-                    <ul class="nav navbar-nav">
-                        <li><a href="/stats">Statistics</a></li>
-                        <li><a href="/about">About</a></li>
-                    </ul>
-                  </div><!-- /.navbar-collapse -->
-                </nav>
-            </div><!-- /.container-fluid -->
+{% include "header.html" %}
 
 
             <div class="container main-wrapper">
@@ -89,23 +57,4 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- END SITE-WRAPPER -->
-        <footer class="footer">
-            <div class="container">
-                <ul class="nav navbar-nav">
-                    <li><p class="text-muted made-with-info"><a href="https://github.com/JLHasson/YouVote">Made with <i class="fa fa-heart"></i> for HackGT 2015.</a></p><li>
-                </ul>
-            </div>
-        </footer>
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-68140737-1', 'auto');
-          ga('send', 'pageview');
-
-        </script>
-    </body>
-</html>
+{% include "footer.html" %}
