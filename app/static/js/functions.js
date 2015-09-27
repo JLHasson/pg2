@@ -93,19 +93,24 @@ function getMessageFeed() {
 					var fakeDate = today.getMonth() + "-" + today.getDate() + "-" + today.getFullYear() + " " + msgFeed[i]['time']
 					if (startSeconds < (new Date(fakeDate)).getTime()) { // If the message time is after the start time display it
 						$('#chat-feed').append(getMsgHTML(msgFeed[i]));
+
+						// Scroll Msg Feed to latest message
+						$('#chat-feed').animate({
+							scrollTop: $('#chat-feed').get(0).scrollHeight
+						}, 500);
 					} else {
 						// Print anyways until server time is fixed
 						$('#chat-feed').append(getMsgHTML(msgFeed[i]));
+						
+						// Scroll Msg Feed to latest message
+						$('#chat-feed').animate({
+							scrollTop: $('#chat-feed').get(0).scrollHeight
+						}, 500);
 					}
 				}
 
 				// Update Global Variable
 				msgCount = serverMsgCount;
-
-				// Scroll Msg Feed to latest message
-				$('#chat-feed').animate({
-					scrollTop: $('#chat-feed').get(0).scrollHeight
-				}, 500);
 			}
 	});
 }
