@@ -22,13 +22,15 @@ $(document).ready(function() {
 
 	/* Load On Click Listeners */
 
-	$('#skip-button').on("click", function() {
-		var skipURL = '/api/skip';
-		console.log("skip");
-		$(this).toggleClass("btn-danger");
+    $('#skip-button').on("click", function() {
+        if (!$(this).hasClass("btn-danger")) {
+    		var skipURL = '/api/skip';
+    		console.log("skip");
+    		$(this).toggleClass("btn-danger");
 
-	    // Get Request to increment skip count
-	    $.ajax({url: skipURL});
+    	    // Get Request to increment skip count
+    	    $.ajax({url: skipURL});
+        }
 	});
 
 	$('#submitMsg').on("click", function() {
