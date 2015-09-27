@@ -83,6 +83,8 @@ $(document).ready(function() {
 	$(window).unload(function(){
 		$.ajax({url: "/api/leave", async: false});
 	});
+
+    generateGreeting();
 });
 
 function originalSkip() {
@@ -357,4 +359,21 @@ function checkSkipped(video_id, last_skipped, start_time) {
     } else {
 		updateYoutubeFrame(video_id, start_time);
 	}
+}
+
+function generateGreeting() {
+    var greetings = [
+        'in class right now',
+        'with nothing better to do',
+        'looking for something new',
+        'just as confused as you',
+        'don\'t know what they\'re watching',
+        'procrastinating right now',
+        'taking a long lunch',
+        'sitting on the toilet'
+    ];
+
+    var number = Math.floor(Math.random() * greetings.length);
+
+    $('.greeting-phrase').html(greetings[number]);
 }
