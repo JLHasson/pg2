@@ -3,3 +3,5 @@ virtenv/
 *.pyc
 *__pycache__/
 *.log
+*.cfg
+

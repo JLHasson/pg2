@@ -2,3 +2,6 @@ flask
 google-api-python-client
 isodate
 gunicorn
+pytz
+psycopg2
+Flask-SQLAlchemy
