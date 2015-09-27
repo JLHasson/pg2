@@ -87,6 +87,8 @@ class VideoTracker:
         v.watched = int(time.time() - self.start_time)
         v.viewers = len(self.ip_list)
         v.skips = len(self.skip_list)
+        v.title = self.currentVideo[2]
+        v.query = self.currentVideo[3]
         db.session.add(v)
         db.session.commit()
 
@@ -122,7 +124,9 @@ class VideoTracker:
             while len(self.queue) < self.upper_thresh:
                 q = self.get_search_term()
                 vid = youtube_search(q, self.batch_size)
-                vid = (vid[0], vid[1], q)
+                if not vid:
+                    continue
+                vid = (vid[0], vid[1], vid[2], q)
                 logging.debug("Added vid: " + str(vid))
                 self.queue.append(vid)
 

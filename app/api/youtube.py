@@ -25,7 +25,7 @@ def youtube_search(search_term, results):
     # query term.
     search_response = youtube.search().list(
         q=search_term,
-        part="id",
+        part="id,snippet",
         maxResults=results
     ).execute()
 
@@ -33,14 +33,17 @@ def youtube_search(search_term, results):
     # Add each result to the appropriate list, and then display the lists of
     # matching videos
     result = search_response.get("items", [])
+    if len(result) < 2:
+        return None
     logging.debug("Got " + str(len(result)) + " results for: " + search_term)
     vid = None
     while not vid or vid["id"]["kind"] != "youtube#video":
         vid = result[random.randint(0, len(result)-1)]
 
     id = vid["id"]["videoId"]
+    title = vid["snippet"]["title"]
 
-    return id, video_length(id)
+    return id, video_length(id), title
 
 
 def video_length(id):

@@ -13,6 +13,9 @@ class Video(db.Model):
     viewers = db.Column(db.Integer)
     skips = db.Column(db.Integer)
 
+    title = db.Column(db.String(200))
+    query = db.Column(db.String(100))
+
     def __init__(self, ytid):
         self.ytid = ytid
 
