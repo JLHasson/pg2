@@ -30,6 +30,13 @@ input {
     -webkit-appearance: none;
 }
 
+.about-picture {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+    border: 1px solid #f6f6f6;
+}
+
 .site-wrapper {
     min-height: 100%;
     display: inline;
