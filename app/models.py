@@ -27,6 +27,15 @@ class Video(db.Model):
         dt = self.timestamp
         return '{0}/{1}/{2:02} {3}:{4} {5}'.format(dt.month, dt.day, dt.year % 100, dt.strftime('%I').strip('0'), dt.minute if len(str(dt.minute)) > 1 else '0{0}'.format(dt.minute), dt.strftime('%p'))
 
+
+    def getRank(self):
+        rank = self.getPercentageWatched() * ((self.viewers-self.skips)/(self.viewers+1))
+        rank = float("{0:.1f}".format(rank))
+        return rank
+
+    def getPercentageWatched(self):
+        return float('{0:.1f}'.format((self.watched/self.length)*100))
+
     @staticmethod
     def avgVideoLength():
         avgVidLength = Video.query.with_entities(func.avg(Video.length).label("avgLength")).all()
@@ -43,5 +52,5 @@ class Video(db.Model):
         q = session.query(Video)
         vids = q.order_by(Video.id).all()
         for vo in vids:
-            json_text.append({"id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": float('{0:.1f}'.format((vo.watched/vo.length)*100))})
+            json_text.append({"rank": vo.getRank(), "id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": vo.getPercentageWatched()})
         return json_text

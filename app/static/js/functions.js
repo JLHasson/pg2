@@ -24,17 +24,7 @@ $(document).ready(function() {
 
     $('#skip-button').on("click", function() {
         originalSkip();
-        if ($(this).hasClass("btn-danger")) {
-            $('.skip-arrow').addClass('spin-animation');
-        } else {
-            var skipURL = '/api/skip';
-    		console.log("skip");
-    		$(this).toggleClass("btn-danger");
-            $('.skip-arrow').addClass('spin-animation');
-
-    	    // Get Request to increment skip count
-    	    $.ajax({url: skipURL});
-        }
+    	skip();
 	});
 
     $('#skip-button').hover(function() {
@@ -74,6 +64,14 @@ $(document).ready(function() {
         }
 	});
 
+	$(document).on("keyup", function(e) {
+		console.log(e);
+		if(e.which == 39) {
+			console.log("right");
+			skip();
+		}
+	})
+
     $('.portlet-body').height($('#player').height() - $('.chat-title').height() - $('#input-container').height() - $('hr').height());
 
 	// Ask Web Server, Do I need to update? (every 500ms)
@@ -89,6 +87,20 @@ $(document).ready(function() {
 
 function originalSkip() {
     $('.skip-btn-inner').html('Skip <span class="glyphicon glyphicon-chevron-right skip-arrow" aria-hidden="true"></span>');
+}
+
+function skip() {
+    if ($(this).hasClass("btn-danger")) {
+        $('.skip-arrow').addClass('spin-animation');
+    } else {
+        var skipURL = '/api/skip';
+		console.log("skip");
+		$(this).toggleClass("btn-danger");
+        $('.skip-arrow').addClass('spin-animation');
+
+	    // Get Request to increment skip count
+	    $.ajax({url: skipURL});
+    }
 }
 
 function getInitialChatBoxMessage() {

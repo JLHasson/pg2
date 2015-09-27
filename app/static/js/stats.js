@@ -2,10 +2,9 @@ console.log('stats.js');
 
 $(document).ready(function() { 
 
-	// Initialize toggle views
-	toggleCompareViewers = true;
-
-	toggleFunctions = { 'Viewers': true, 
+	// Default toggle values for sorting
+	toggleFunctions = { 'Rank': true,
+						'Viewers': true, 
 						'Skips': true,
 						'PercentagePlayed': true, 
 						'TimePlayed': true,
@@ -37,13 +36,13 @@ function buildTable() {
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(
 								'<tr class="r">' +
-									'<td>' + 'Rank' + '</td>' +
+									'<td>' + json[i].rank + '</td>' +
 									'<td>' + json[i].id + '</td>' +
 									'<td>' + json[i].viewers + '</td>' +
 									'<td>' + json[i].skips + '</td>' +
 									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + json[i].watched + '</td>' +
-									'<td>' + json[i]["length"] + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
 									'<td>' + json[i].timestamp + '</td>' +
 								'</tr>');
 		}
@@ -53,7 +52,8 @@ function buildTable() {
 
 function rebuildTable(column) {
 	
-	var compareFunctions = {'Viewers': compareViewers, 
+	var compareFunctions = {'Rank': compareRanks,
+							'Viewers': compareViewers, 
 							'Skips': compareSkips,
 							'PercentagePlayed': comparePercentageWatched, 
 							'TimePlayed': compareWatched,
@@ -81,13 +81,13 @@ function rebuildTable(column) {
 		for (var i = 0; i < json.length; i++) {
 			$('#bestTable').append(
 								'<tr class="r">' +
-									'<td>' + 'Rank' + '</td>' +
+									'<td>' + json[i].rank + '</td>' +
 									'<td>' + json[i].id + '</td>' +
 									'<td>' + json[i].viewers + '</td>' +
 									'<td>' + json[i].skips + '</td>' +
 									'<td>' + json[i].percentageWatched + '</td>' +
-									'<td>' + json[i].watched + '</td>' +
-									'<td>' + json[i]["length"] + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i].watched) + '</td>' +
+									'<td>' + secondsToTimeFormat(json[i]["length"]) + '</td>' +
 									'<td>' + json[i].timestamp + '</td>' +
 								'</tr>');
 		}
@@ -95,8 +95,23 @@ function rebuildTable(column) {
 	})
 }
 
-function compareViewers(a,b) {
+function compareRanks(a,b) {
+  if (toggleFunctions['Rank']) {
+	  if (a.rank < b.rank)
+	    return 1;
+	  if (a.rank > b.rank)
+	    return -1;
+	  return 0;	
+	} else {
+	  if (a.rank < b.rank)
+	    return -1;
+	  if (a.rank > b.rank)
+	    return 1;
+	  return 0;			
+	}
+}
 
+function compareViewers(a,b) {
   if (toggleFunctions['Viewers']) {
 	  if (a.viewers < b.viewers)
 	    return 1;
@@ -110,7 +125,6 @@ function compareViewers(a,b) {
 	    return 1;
 	  return 0;			
 	}
-  
 }
 
 function compareSkips(a,b) {
@@ -127,7 +141,6 @@ function compareSkips(a,b) {
 	    return 1;
 	  return 0;  	
   }
-  
 }
 
 function comparePercentageWatched(a,b) {
@@ -160,7 +173,6 @@ function compareWatched(a,b) {
 	    return 1;
 	  return 0;  	
   }
-
 }
 
 function compareLength(a,b) {
@@ -177,7 +189,6 @@ function compareLength(a,b) {
 	    return 1;
 	  return 0;  	
   }
-
 }
 
 function compareLastPlayed(a,b) {
@@ -194,5 +205,9 @@ function compareLastPlayed(a,b) {
 	    return 1;
 	  return 0;	
   }
+}
 
+function secondsToTimeFormat(seconds) {
+	var myDate = new Date(null, null, null, null, null, seconds).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0]
+	return myDate
 }
