@@ -21,7 +21,7 @@ $(document).ready(function() {
 						'LastPlayed': true};
 
     // Build Table sorted by Viewers
-    buildTable();
+    rebuildTable('LastPlayed');
 
     var column_ids = ['Rank', 'Video', 'Viewers', 'Skips', 'PercentagePlayed', 'TimePlayed', 'Length', 'LastPlayed'];
 
@@ -37,25 +37,6 @@ $(document).ready(function() {
     	console.log(this);
     });
 });
-
-function buildTable() {
-	var apiVideos = '/api/videos.json';
-	
-	$.get(apiVideos, function(json_text) {
-
-		var json = JSON.parse(json_text);
-		console.log(json);
-		
-		// Append to Table
-		for (var i = 0; i < json.length; i++) {
-			$('#bestTable').append(getRowHTML(json[i]));
-		}
-		// On Click Listeners
-	    $('.r').on("click", function() {
-	    	console.log(this.id);
-	    });
-	})
-}
 
 function rebuildTable(column) {
 	
