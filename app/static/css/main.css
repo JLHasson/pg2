@@ -53,6 +53,20 @@ input {
     background-color: #dcdcdd;
 }
 
+.stats-footer {
+    position: relative;
+    clear: both;
+    bottom: 0;
+    margin-top: -60;
+    width: 100%;
+    height: 60px;
+    background-color: #dcdcdd;
+}
+
+.stats-footer .ul .li {
+    margin-right: 10px;
+}
+
 .made-with-info {
     margin: 20px 0;
 }
