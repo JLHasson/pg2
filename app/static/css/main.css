@@ -1,10 +1,9 @@
 html {
     height: 100%;
-    /*overflow: hidden;*/
 }
 
 body {
-    /*height: 100%;*/
+    height: 100%;
     background-color: #f6f6f6 !important;
 }
 
@@ -33,20 +32,22 @@ input {
 
 .site-wrapper {
     min-height: 100%;
+    display: inline;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .main-wrapper {
-    overflow:auto;
-    padding-bottom: 20px;
-    /*margin-bottom: -60px;*/
+    overflow: auto;
 }
 
 .footer {
-    position: relative;
+    position: absolute;
     clear: both;
     bottom: 0;
-    margin-top: -160;
-    /*padding-top: 20px;*/
+    margin-top: -60;
     width: 100%;
     height: 60px;
     background-color: #dcdcdd;
@@ -215,6 +216,12 @@ input {
   color: #ffbbbc;
 }
 
+@media screen and (max-height: 676), screen and (max-width: 992) {
+    .footer {
+        position: relative;
+    }
+}
+
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ecf0f1;
@@ -236,6 +243,9 @@ input {
       margin-bottom: 0px;
       margin-top: 15px;
       text-align: center;
+  }
+  .footer {
+      position: relative;
   }
 }
 /* END NAVBAR */
