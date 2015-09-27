@@ -25,7 +25,7 @@ def index():
 
 @app.route('/stats')
 def stats():
-    vids = Video.query.order_by(Video.id)
+    vids = Video.query.order_by(Video.id).all()
     return render_template('stats.html', best=vids)
 
 @app.route('/api/skip')
@@ -41,7 +41,6 @@ def get():
 
 @app.route('/api/chat', methods=["GET", "POST"])
 def postMsg():
-    print (request.headers)
     msg = request.headers.get('msg')
     if (msg != None):
         chat.appendMsg(msg)
@@ -51,3 +50,4 @@ def postMsg():
 def leave():
     ip = get_ip()
     tracker.unregister(ip)
+    return None
