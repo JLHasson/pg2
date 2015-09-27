@@ -74,6 +74,11 @@ hr {
     height: auto;
 }
 
+#chat-feed {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 #skip-button {
     width: 100%;
 }
