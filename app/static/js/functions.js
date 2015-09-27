@@ -7,6 +7,9 @@ $(document).ready(function() {
 	startDate = new Date();
 	startSeconds = startDate.getTime();
 
+	// Initialize isChatEnabled to true (Global Variable)
+	isChatEnabled = true;
+
 	/* Load Current Day and Time in Chat Box */
 
 	$('#chat-feed').append(getInitialChatBoxMessage())
@@ -35,16 +38,19 @@ $(document).ready(function() {
 
 	$('#submitMsg').on("click", function() {
 
-		console.log("Submit Msg");
-		sendMsg();
+		if (isChatEnabled) {
+			sendMsg();
+		}
 	});
 
 	/* On Key Listener */
 
 	$('#msgInput').on("keyup", function(e) {
 		if(e.which == 13) {
-            console.log('enter');
-            sendMsg();
+            
+            if (isChatEnabled) {
+            	sendMsg();
+            }
         }
 	});
 
@@ -54,8 +60,14 @@ $(document).ready(function() {
 	setInterval(getCurrentVideo, 500);
 
 	// Update Chat Box
-	setInterval(getMessageFeed, 500);
+	if (isChatEnabled) {
+		setInterval(getMessageFeed, 500);
+	}
 });
+
+function toggleChat() {
+	isChatEnabled = !isChatEnabled;
+}
 
 function getInitialChatBoxMessage() {
 	var ret =
