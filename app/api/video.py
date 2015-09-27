@@ -75,6 +75,7 @@ class VideoTracker:
             self.last_was_skipped = False
 
         self.ip_list.add(ip)
+        logging.debug(len(self.ip_list))
         j = {
             "id": self.currentVideo[0],
             "time": self.running_time(),
@@ -127,5 +128,5 @@ class VideoTracker:
         db.session.commit()
 
     def unregister(self, ip):
-        self.skip_list.remove(ip)
-        self.ip_list.remove(ip)
+        self.skip_list.discard(ip)
+        self.ip_list.discard(ip)

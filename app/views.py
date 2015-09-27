@@ -49,5 +49,5 @@ def postMsg():
 
 @app.route('/api/leave')
 def leave():
-    ip = request.remote_addr
-    return tracker.unregister(ip)
+    ip = get_ip()
+    tracker.unregister(ip)
