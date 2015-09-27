@@ -42,7 +42,7 @@
                   <td>{{ '{0:.1f} %'.format((record.watched/record.length)*100) }}</td>
                   <td>{{ record.watched }}</td>
                   <td>{{ record.length }}</td>
-                  <td>{{ record.timestamp }}</td>
+                  <td>{{ record.getDateTimeLastPlayed() }}</td>
                 </tr>
                 {% endfor %}
                 {% endblock %}

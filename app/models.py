@@ -1,3 +1,4 @@
+import datetime
 from app import db
 
 class Video(db.Model):
@@ -16,3 +17,7 @@ class Video(db.Model):
 
     def __str__(self):
         return "<Video %s>" % self.ytid
+
+    def getDateTimeLastPlayed(self):
+        dt = datetime.datetime.strptime(str(self.timestamp), '%Y-%m-%d %H:%M:%S.%f')
+        return '{0}/{1}/{2:02} {3}:{4} {5}'.format(dt.month, dt.day, dt.year % 100, dt.strftime('%I').strip('0'), dt.minute if len(str(dt.minute)) > 1 else '0{0}'.format(dt.minute), dt.strftime('%p'))
