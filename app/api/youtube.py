@@ -5,6 +5,7 @@ import isodate
 import logging
 import random
 logging.getLogger("googleapiclient.discovery").setLevel(logging.WARNING)
+logging.getLogger("googleapiclient.discovery_cache.file_cache").setLevel(logging.WARNING)
 
 
 # Set DEVELOPER_KEY to the API key value from the APIs & auth > Registered apps
