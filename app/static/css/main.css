@@ -74,6 +74,14 @@ hr {
     height: auto;
 }
 
+.no-chat {
+    background-color: #bcbcbd;
+}
+
+.no-chat .panel-collapse {
+    display: none;
+}
+
 #chat-feed {
     max-width: 100%;
     overflow-x: hidden;

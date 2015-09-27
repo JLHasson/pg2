@@ -23,8 +23,10 @@ $(document).ready(function() {
 	/* Load On Click Listeners */
 
     $('#skip-button').on("click", function() {
-        if (!$(this).hasClass("btn-danger")) {
-    		var skipURL = '/api/skip';
+        if ($(this).hasClass("btn-danger")) {
+    		//nothing
+        } else {
+            var skipURL = '/api/skip';
     		console.log("skip");
     		$(this).toggleClass("btn-danger");
 
@@ -32,6 +34,14 @@ $(document).ready(function() {
     	    $.ajax({url: skipURL});
         }
 	});
+
+    $('.chat-title').on("click", function() {
+        if ($('.chat-panel').hasClass("no-chat")) {
+            $('.chat-panel').removeClass("no-chat");
+        } else {
+            $('.chat-panel').addClass("no-chat");
+        }
+    });
 
 	$('#submitMsg').on("click", function() {
 
