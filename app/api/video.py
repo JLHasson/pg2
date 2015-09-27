@@ -110,7 +110,9 @@ class VideoTracker:
             self.word_list = []
             self.load_word_list()
 
-            self.refill()
+            t = Thread(target=self.refill)
+            t.setDaemon(True)
+            t.start()
 
         def pop(self):
             ret = self.queue.pop(0)
