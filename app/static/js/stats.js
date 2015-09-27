@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 	// Default toggle values for sorting
 	toggleFunctions = { 'Rank': true,
+						'Title': true,
 						'Viewers': true,
 						'Skips': true,
 						'PercentagePlayed': true,
@@ -23,7 +24,7 @@ $(document).ready(function() {
     // Build Table sorted by Viewers
     rebuildTable('LastPlayed');
 
-    var column_ids = ['Rank', 'Video', 'Viewers', 'Skips', 'PercentagePlayed', 'TimePlayed', 'Length', 'LastPlayed'];
+    var column_ids = ['Rank', 'Title', 'Viewers', 'Skips', 'PercentagePlayed', 'TimePlayed', 'Length', 'LastPlayed'];
 
     for (var i = 0; i < column_ids.length; i++) {
 
@@ -41,6 +42,7 @@ function rebuildTable(column) {
 
 	// Used for Sorting
 	var compareFunctions = {'Rank': compareRanks,
+							'Title': compareTitles,
 							'Viewers': compareViewers,
 							'Skips': compareSkips,
 							'PercentagePlayed': comparePercentageWatched,
@@ -102,6 +104,22 @@ function compareRanks(a,b) {
 	  if (a.rank < b.rank)
 	    return -1;
 	  if (a.rank > b.rank)
+	    return 1;
+	  return 0;
+	}
+}
+
+function compareTitles(a,b) {
+  if (toggleFunctions['Title']) {
+	  if (a.title < b.title)
+	    return 1;
+	  if (a.title > b.title)
+	    return -1;
+	  return 0;
+	} else {
+	  if (a.title < b.title)
+	    return -1;
+	  if (a.title > b.title)
 	    return 1;
 	  return 0;
 	}
