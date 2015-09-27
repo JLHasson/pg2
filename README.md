@@ -29,3 +29,8 @@ Finally, create a file called 'settings.cfg' in app/ with the database config an
 YOUTUBE_API_KEY = "KEYDATA"
 SQLALCHEMY_DATABASE_URI = "postgresql://user:password@host/database"
 ```
+
+You can now run the server with:
+```
+python run.py
+```
