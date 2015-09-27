@@ -1,5 +1,11 @@
+html {
+    height: 100%;
+    /*overflow: hidden;*/
+}
+
 body {
-    background-color: #ececed !important;
+    /*height: 100%;*/
+    background-color: #f6f6f6 !important;
 }
 
 h2 {
@@ -12,15 +18,41 @@ hr {
     margin-bottom: 0px;
 }
 
+*:focus {
+    outline: 0 none;
+}
+
+textarea:focus, input:focus{
+    outline: 0 none;
+}
+
+input {
+    border: 0 none;
+    -webkit-appearance: none;
+}
+
+.site-wrapper {
+    min-height: 100%;
+}
+
+.main-wrapper {
+    overflow:auto;
+    padding-bottom: 20px;
+    /*margin-bottom: -60px;*/
+}
+
 .footer {
-    position: absolute;
+    position: relative;
+    clear: both;
     bottom: 0;
+    margin-top: -160;
+    /*padding-top: 20px;*/
     width: 100%;
     height: 60px;
     background-color: #dcdcdd;
 }
 
-.container .text-muted {
+.made-with-info {
     margin: 20px 0;
 }
 
@@ -28,25 +60,39 @@ hr {
     margin-right: 10px;
 }
 
+.upper-panel {
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+    -moz-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+    box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+}
+
 .upper-section {
     margin-top: 20px;
 }
 
 .skip-section {
-    margin-right: 15px;
+    /*margin-right: 15px;*/
     margin-top: 10px;
+    text-align: center;
+}
+
+.progress-info-wrapper {
 }
 
 .progress-wrapper {
     margin-left: 5px;
+    margin-right: 5px;
 }
 
 .progress {
-    background: #449d44
+    /*margin-top: -5px;*/
+    /*background: #449d44;*/
+    background: #9C8F8E;
 }
 
 .progress-bar {
     background: #d9534f;
+    /*background: #9C8F8E;*/
 }
 
 .video-section {
@@ -72,6 +118,13 @@ hr {
 
 .chat-panel {
     height: auto;
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+    -moz-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+    box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+}
+
+.form-control {
+    width: 100%;
 }
 
 .no-chat {
@@ -88,7 +141,10 @@ hr {
 }
 
 #skip-button {
-    width: 100%;
+    width: 85%;
+    border-radius: 0px !important;
+    /*background-color: #DA556B;*/
+    background-color: #d9534f;
 }
 
 .input-group {
@@ -105,12 +161,19 @@ hr {
 
 /* NAVBAR */
 .navbar-default {
-  background-color: #e74c3c;
+  background-color: #fff;
   border-color: #c0392b;
   border-radius: 0px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px;
+  -webkit-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+  -moz-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
+  box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
 }
 .navbar-default .navbar-brand {
-  color: #ecf0f1;
+  color: #d9534f;
 }
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: #ffbbbc;
@@ -163,6 +226,17 @@ hr {
     color: #ffbbbc;
     background-color: #c0392b;
   }
+  .nav .navbar-nav {
+    margin: 0;
+  }
+  #skip-button {
+      width: 100%;
+  }
+  .made-with-info {
+      margin-bottom: 0px;
+      margin-top: 15px;
+      text-align: center;
+  }
 }
 /* END NAVBAR */
 
@@ -172,6 +246,7 @@ hr {
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
+    color: #f0f0f1;
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
