@@ -17,19 +17,28 @@
     <body>
         <div class="container-fullwidth">
             <nav class="navbar navbar-default">
-                  <div class="container">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/">
-                            <img src="/static/assets/pg2-logo.png" alt="Brand" width="50px" height="50px" style="padding: 0;">
-                        </a>
-                    </div>
+              <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="/">
+                      <img src="/static/assets/pg2-logo.png" alt="Brand" width="50px" height="50px" style="padding: 0;">
+                  </a>
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse" aria-expanded="false" style="height: 1px;">
                     <ul class="nav navbar-nav">
                         <li><a href="/stats">Statistics</a></li>
                         <li><a href="/about">About</a></li>
                     </ul>
-                  </div><!-- /.navbar-collapse -->
-                </nav>
+                </div>
+              </div><!-- /.navbar-collapse -->
+            </nav>
+        </div><!-- /.container-fluid -->
 
             <div class="container">
 

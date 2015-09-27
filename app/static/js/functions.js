@@ -374,7 +374,7 @@ function generateGreeting() {
         'with nothing better to do',
         'looking for something new',
         'just as confused as you',
-        'don\'t know what they\'re watching',
+        'confused about what they\'re watching',
         'procrastinating right now',
         'taking a long lunch',
         'sitting on the toilet'
