@@ -1,6 +1,6 @@
 import datetime
 import json
-from app import db
+from app import db,session
 from sqlalchemy.sql import func
 
 class Video(db.Model):
@@ -40,6 +40,8 @@ class Video(db.Model):
     @staticmethod
     def getVideosJSON():
         json_text = []
-        for vo in Video.query.all():
+        q = session.query(Video)
+        vids = q.order_by(Video.id).all()
+        for vo in vids:
             json_text.append({"id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": '{0:.1f}'.format((vo.watched/vo.length)*100)})
         return json_text

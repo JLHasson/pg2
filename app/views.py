@@ -7,6 +7,7 @@ import json
 
 import logging
 from .models import Video
+from app import session
 
 logging.basicConfig(filename="server.log", level=logging.DEBUG)
 
@@ -26,7 +27,8 @@ def index():
 
 @app.route('/stats')
 def stats():
-    vids = Video.query.order_by(Video.id).all()
+    q = session.query(Video)
+    vids = q.order_by(Video.id).all()
     return render_template('stats.html', best=vids)
 
 @app.route('/api/skip')
