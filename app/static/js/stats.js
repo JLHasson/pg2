@@ -101,7 +101,7 @@ function rebuildTable(column) {
 
 function getRowHTML(json) {
 	var ret =
-	'<tr class="r" data-toggle="modal" data-target="#myModal" id="' + json.id + '">' +
+	'<tr class="r" style="cursor: pointer; cursor: hand;" data-toggle="modal" data-target="#myModal" id="' + json.id + '">' +
 		'<td>' + json.rank + '</td>' +
 		'<td id="'+ json.id +'">' + json.title + '</td>' +
 		'<td>' + json.viewers + '</td>' +

@@ -1,4 +1,5 @@
 .doc {
+    height: auto;
     -webkit-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
     -moz-box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
     box-shadow: 2px 2px 1px 0px rgba(199,199,199,1);
