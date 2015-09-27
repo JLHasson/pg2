@@ -31,6 +31,14 @@ def stats():
     vids = q.order_by(Video.id).all()
     return render_template('stats.html', best=vids)
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/strap')
+def strap():
+    return render_template('strap.html')
+
 @app.route('/api/skip')
 def skip():
     ip = get_ip()

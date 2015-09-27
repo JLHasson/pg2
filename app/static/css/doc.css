@@ -1,0 +1,13 @@
+.doc h1 {
+    margin: 30px;
+}
+
+.doc p {
+    margin-left: 55px;
+    margin-top: 40px;
+    margin-right: 55px;
+}
+
+.doc h2 {
+    margin: 40px;
+}
