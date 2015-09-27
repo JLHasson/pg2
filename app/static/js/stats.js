@@ -46,7 +46,12 @@ function buildTable() {
 
 function rebuildTable(column) {
 	
-	var compareFunctions = {'Viewers': compareViewers, 'Skips': compareSkips};
+	var compareFunctions = {'Viewers': compareViewers, 
+							'Skips': compareSkips,
+							'PercentagePlayed': comparePercentageWatched, 
+							'TimePlayed': compareWatched,
+							'Length': compareLength,
+							'LastPlayed': compareLastPlayed};
 
 	var apiVideos = '/api/videos.json';
 	
@@ -92,4 +97,36 @@ function compareSkips(a,b) {
   if (a.skips > b.skips)
     return -1;
   return 0;
+}
+
+function comparePercentageWatched(a,b) {
+  if (parseInt(a.percentageWatched) < parseInt(b.percentageWatched))
+    return 1;
+  if (parseInt(a.percentageWatched) > parseInt(b.percentageWatched))
+    return -1;
+  return 0;
+}
+
+function compareWatched(a,b) {
+  if (a.watched < b.watched)
+    return 1;
+  if (a.watched > b.watched)
+    return -1;
+  return 0;
+}
+
+function compareLength(a,b) {
+  if (a["length"] < b["length"])
+    return 1;
+  if (a["length"] > b["length"])
+    return -1;
+  return 0;
+}
+
+function compareLastPlayed(a,b) {
+  if (a.timestamp < b.timestamp)
+    return 1;
+  if (a.timestamp > b.timestamp)
+    return -1;
+  return 0;	
 }

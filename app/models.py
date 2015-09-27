@@ -21,7 +21,7 @@ class Video(db.Model):
         return "<Video %s>" % self.ytid
 
     def getDateTimeLastPlayed(self):
-        dt = datetime.datetime.strptime(str(self.timestamp), '%Y-%m-%d %H:%M:%S.%f')
+        dt = self.timestamp
         return '{0}/{1}/{2:02} {3}:{4} {5}'.format(dt.month, dt.day, dt.year % 100, dt.strftime('%I').strip('0'), dt.minute if len(str(dt.minute)) > 1 else '0{0}'.format(dt.minute), dt.strftime('%p'))
 
     @staticmethod
@@ -40,5 +40,5 @@ class Video(db.Model):
     def getVideosJSON():
         json_text = []
         for vo in Video.query.all():
-            json_text.append({"id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": '{0:.1f} %'.format((vo.watched/vo.length)*100)})
+            json_text.append({"id": vo.ytid, "viewers": vo.viewers, "timestamp": vo.getDateTimeLastPlayed(), "length": vo.length, "watched": vo.watched, "skips": vo.skips, "percentageWatched": '{0:.1f}'.format((vo.watched/vo.length)*100)})
         return json_text
