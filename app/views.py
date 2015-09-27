@@ -3,6 +3,7 @@ from .api.video import VideoTracker
 from .api.chat import Chat
 from flask import render_template
 from flask import request
+import json
 
 import logging
 from .models import Video
@@ -50,4 +51,8 @@ def postMsg():
 def leave():
     ip = get_ip()
     tracker.unregister(ip)
-    return None
+    return "Left"
+
+@app.route('/api/videos.json')
+def getVideos():
+    return json.dumps(Video.getVideosJSON())

@@ -27,12 +27,21 @@
             <div class="container">
 
                 <h3 class="text-center">Best Videos</h3>
-                <table class="table table-striped table-hover">
+                <table id="bestTable" class="table table-striped table-hover">
+                 <thead>
                   <tr>
-                    <th>Rank</th><th>Video</th><th>Viewers</th><th>Skips</th><th>% Played</th><th>Time Played</th><th>Length</th><th>Last Played</th>
+                    <th id="Rank">Rank</th>
+                    <th id="Video">Video</th>
+                    <th id="Viewers">Viewers</th>
+                    <th id="Skips">Skips</th>
+                    <th id="PercentagePlayed">% Played</th>
+                    <th id="TimePlayed">Time Played</th>
+                    <th id="Length">Length</th>
+                    <th id="LastPlayed">Last Played</th>
                   </tr>
-                
-                {% block body %}
+                </thead>
+                </table>
+<!--                 {% block body %}
                 {% for record in best %}
                 <tr>
                   <td>Rank</td>
@@ -45,9 +54,9 @@
                   <td>{{ record.getDateTimeLastPlayed() }}</td>
                 </tr>
                 {% endfor %}
-                {% endblock %}
+                {% endblock %} -->
 
-                </table>
+                
 
                 
             </div>

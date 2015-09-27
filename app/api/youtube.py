@@ -33,6 +33,7 @@ def youtube_search(search_term, results):
     # Add each result to the appropriate list, and then display the lists of
     # matching videos
     result = search_response.get("items", [])
+    logging.debug("Got " + str(len(result)) + " results for: " + search_term)
     vid = None
     while not vid or vid["id"]["kind"] != "youtube#video":
         vid = result[random.randint(0, len(result)-1)]
