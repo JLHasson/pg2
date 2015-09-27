@@ -7,9 +7,6 @@ $(document).ready(function() {
 	startDate = new Date();
 	startSeconds = startDate.getTime();
 
-	// Initialize isChatEnabled to true (Global Variable)
-	isChatEnabled = true;
-
 	/* Load Current Day and Time in Chat Box */
 
 	$('#chat-feed').append(getInitialChatBoxMessage())
@@ -25,32 +22,27 @@ $(document).ready(function() {
 
 	/* Load On Click Listeners */
 
-    $('#skip-button').on("click", function() {
-        if (!$(this).hasClass("btn-danger")) {
-    		var skipURL = '/api/skip';
-    		console.log("skip");
-    		$(this).toggleClass("btn-danger");
+	$('#skip-button').on("click", function() {
+		var skipURL = '/api/skip';
+		console.log("skip");
+		$(this).toggleClass("btn-danger");
 
-    	    // Get Request to increment skip count
-    	    $.ajax({url: skipURL});
-        }
+	    // Get Request to increment skip count
+	    $.ajax({url: skipURL});
 	});
 
 	$('#submitMsg').on("click", function() {
 
-		if (isChatEnabled) {
-			sendMsg();
-		}
+		console.log("Submit Msg");
+		sendMsg();
 	});
 
 	/* On Key Listener */
 
 	$('#msgInput').on("keyup", function(e) {
 		if(e.which == 13) {
-            
-            if (isChatEnabled) {
-            	sendMsg();
-            }
+            console.log('enter');
+            sendMsg();
         }
 	});
 
@@ -60,14 +52,8 @@ $(document).ready(function() {
 	setInterval(getCurrentVideo, 500);
 
 	// Update Chat Box
-	if (isChatEnabled) {
-		setInterval(getMessageFeed, 500);
-	}
+	setInterval(getMessageFeed, 500);
 });
-
-function toggleChat() {
-	isChatEnabled = !isChatEnabled;
-}
 
 function getInitialChatBoxMessage() {
 	var ret =
