@@ -201,7 +201,7 @@ function sendMsg() {
 				success: function(response) {
 					console.log(response);
 				}
-		});		
+		});
 	}
 }
 

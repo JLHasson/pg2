@@ -20,7 +20,9 @@
                   <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                      <a class="navbar-brand" href="/">pg2</a>
+                        <a class="navbar-brand" href="/">
+                            <img src="/static/assets/pg2-logo.png" alt="Brand" width="50px" height="50px" style="padding: 0;">
+                        </a>
                     </div>
                     <ul class="nav navbar-nav">
                         <li><a href="/stats">Statistics</a></li>
@@ -30,6 +32,31 @@
                 </nav>
 
             <div class="container">
+
+                <!-- Modal -->
+                <div id="myModal" class="modal modal-wide fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Watch Video</h4>
+                      </div>
+                      <div class="modal-body">
+                          <div class="video-section">
+                              <div class="embed-responsive embed-responsive-16by9">
+                                  <div id="player" class="embed-responsive-item"></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
 
                 <h3 class="text-center">Statistics</h3>
                 <table id="bestTable" class="table table-striped table-hover">
