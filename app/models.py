@@ -37,6 +37,14 @@ class Video(db.Model):
         return float('{0:.1f}'.format((self.watched/self.length)*100))
 
     @staticmethod
+    def getVideoTitleById(id):
+        q = session.query(Video)
+        vids = q.order_by(Video.id).all()
+        for vo in vids:
+            if vo.ytid == id:
+                return vo.title
+
+    @staticmethod
     def avgVideoLength():
         avgVidLength = Video.query.with_entities(func.avg(Video.length).label("avgLength")).all()
         return avgVidLength[0][0]

@@ -5,3 +5,4 @@ gunicorn
 pytz
 psycopg2
 Flask-SQLAlchemy
+tweepy
