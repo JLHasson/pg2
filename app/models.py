@@ -24,9 +24,9 @@ class Video(db.Model):
         return "<Video %s>" % self.ytid
 
     def getDateTimeLastPlayed(self):
-        dt = self.timestamp
-        return '{0}/{1}/{2:02} {3}:{4} {5}'.format(dt.month, dt.day, dt.year % 100, dt.strftime('%I').strip('0'), dt.minute if len(str(dt.minute)) > 1 else '0{0}'.format(dt.minute), dt.strftime('%p'))
-
+        dt = (self.timestamp - datetime.datetime(1970,1,1)).total_seconds() * 1000
+        milliseconds, microseconds = divmod(dt, 1)
+        return milliseconds
 
     def getRank(self):
         rank = self.getPercentageWatched() * ((self.viewers-self.skips)/(self.viewers+1))

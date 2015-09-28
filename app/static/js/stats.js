@@ -88,9 +88,33 @@ function getRowHTML(json) {
 		'<td class="hidden-xs">' + json.percentageWatched + '</td>' +
 		'<td class="hidden-xs">' + secondsToTimeFormat(json.watched) + '</td>' +
 		'<td class="hidden-xs">' + secondsToTimeFormat(json["length"]) + '</td>' +
-		'<td class="hidden-xs">' + json.timestamp + '</td>' +
+		'<td class="hidden-xs">' + secondsToDateTime(json.timestamp) + '</td>' +
 	'</tr>';
 	return ret;
+}
+
+function secondsToDateTime(seconds) {
+	
+	dateTime = toEST(seconds); // Server time is not EST
+	console.log(date);
+
+	date = dateTime.toLocaleDateString(); 
+	time = dateTime.toLocaleTimeString();
+
+	// Remove seconds from time
+	time = time.substr(0, time.length - 6) + " " + time.substr(time.length - 2)
+
+	ret = date + " " + time;
+	return ret;
+}
+
+function toEST(serverTime) {
+
+	// EST
+	offset = 4.0;
+	date = new Date(serverTime + (offset * 3600000));
+	console.log(date.getTime())
+	return date;
 }
 
 function compareRanks(a,b) {
