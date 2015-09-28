@@ -63,7 +63,7 @@ def main():
             if count % 2 == 1:
                 tweet = "pg2.tv just played " + title + " #wutsNext #uTellMe"
             else:
-                tweet = "pg2.tv just played " + title + "#watchpg2Tv"
+                tweet = "pg2.tv just played " + title + " #watchpg2Tv"
 
             status = api.update_status(status=tweet)
 
