@@ -1,7 +1,7 @@
 # Page2
 Community driven synchronous youtube feed. Users are able to vote to skip the current video and move onto the next one.
 If enough users vote to skip, everyone's browser immediately starts playing the next video. Users are able to discuss
-the current video in the chatbox.
+the current video in the chatbox. Live at [pg2.tv](http://pg2.tv/).
 
 # Installation
 Begin by installing python, virtualenv, and postgresql:
