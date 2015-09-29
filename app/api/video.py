@@ -7,6 +7,7 @@ import random
 from app import db
 from app.models import Video
 from .youtube import youtube_search
+from app.tweetBot import TweetBot
 
 logging.getLogger("werkzeug").setLevel(logging.WARNING)
 
@@ -31,6 +32,7 @@ class VideoTracker:
         self.skip_thresh = 0.5
         self.start_time = time.time()
         self.last_was_skipped = False
+        self.tweetBot = TweetBot()
 
     def get_video(self, ip):
         if not self.currentVideo:
@@ -76,6 +78,9 @@ class VideoTracker:
         self.currentVideo = self.queue.pop()
         logging.info("Now showing " + str(self.currentVideo))
         self.start_time = time.time()
+
+        # tweet(ytid, title, viewers, skips, query)
+        self.tweetBot.tweet(self.currentVideo[0], self.currentVideo[2], len(self.ip_list), len(self.skip_list), self.currentVideo[3])
 
     def running_time(self):
         return int(time.time() - self.start_time)

@@ -24,6 +24,15 @@ source virtenv/bin/activate
 pip install -r requirements.txt
 ```
 
+Create a file called 'settings_twitter.cfg' in app/ with the twitter api key information
+```
+ACCESS_TOKEN =
+ACCESS_TOKEN_SECRET = 
+CONSUMER_KEY_API_KEY = 
+CONSUMER_SECRET_API_KEY = 
+YOUTUBE_API_KEY = ""
+```
+
 Finally, create a file called 'settings.cfg' in app/ with the database config and youtube api key information
 ```
 YOUTUBE_API_KEY = "KEYDATA"
